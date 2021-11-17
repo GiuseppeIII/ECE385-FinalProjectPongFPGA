@@ -69,6 +69,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	logic [1:0] signs;
 	logic [1:0] hundreds;
 	logic [9:0] drawxsig, drawysig, ballxsig, ballysig, ballsizesig;
+	logic [9:0] paddle1Xsig, paddle1Ysig, paddle2Xsig, paddle2Ysig, paddle1Lsig, paddle1Wsig, paddle2Lsig, paddle2Wsig;
 	logic [7:0] Red, Blue, Green;
 	logic [7:0] keycode;
 
@@ -167,10 +168,16 @@ vgaController vga(.Clk(MAX10_CLK1_50), .Reset(Reset_h), .hs(VGA_HS), .vs(VGA_VS)
 
 ball vga_ball(.Reset(Reset_h), .frame_clk(VGA_VS), .keycode(keycode), .BallX(ballxsig), .BallY(ballysig), .BallS(ballsizesig));
 
+paddle vga_paddles(
+.Reset(Reset_h), .frame_clk(VGA_VS), .keycode(keycode), 
+.Paddle1X(paddle1Xsig), .Paddle1Y(paddle1Ysig), .Paddle2X(paddle2Xsig), .Paddle2Y(paddle2Ysig), 
+.Paddle1L(paddle1Lsig), .Paddle1W(paddle1Wsig), .Paddle2L(paddle2Lsig), .Paddle2W(paddle2Wsig));
 
-color vga_color_mapper(.BallX(ballxsig), .BallY(ballysig), .DrawX(drawxsig), .DrawY(drawysig), .Ball_size(ballsizesig),
-                                        .Red(Red), .Green(Green), .Blue(Blue));
-
-    
+color vga_color_mapper(
+.Paddle1X(paddle1Xsig), .Paddle1Y(paddle1Ysig), .Paddle2X(paddle2Xsig), .Paddle2Y(paddle2Ysig),
+.Paddle1L(paddle1Lsig), .Paddle1W(paddle1Wsig), .Paddle2L(paddle2Lsig), .Paddle2W(paddle2Wsig),
+.BallX(ballxsig), .BallY(ballysig), .Ball_size(ballsizesig),
+.DrawX(drawxsig), .DrawY(drawysig),
+.Red(Red), .Green(Green), .Blue(Blue));
 
 endmodule

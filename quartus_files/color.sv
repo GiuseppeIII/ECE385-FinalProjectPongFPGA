@@ -13,10 +13,14 @@
 //-------------------------------------------------------------------------
 
 
-module  color ( input        [9:0] BallX, BallY, DrawX, DrawY, Ball_size,
-                       output logic [7:0]  Red, Green, Blue );
-    
+module color (	input			[9:0] BallX, BallY, DrawX, DrawY, Ball_size,
+					input			[9:0] Paddle1X, Paddle1Y, Paddle2X, Paddle2Y, Paddle1L, Paddle1W, Paddle2L, Paddle2W,			 
+					output logic[7:0]  Red, Green, Blue );
+					
     logic ball_on;
+	 logic paddle1_on;
+	 logic paddle2_on;
+	 
 	 
  /* Old Ball: Generated square box by checking if the current pixel is within a square of length
     2*Ball_Size, centered at (BallX, BallY).  Note that this requires unsigned comparisons.
@@ -38,26 +42,62 @@ module  color ( input        [9:0] BallX, BallY, DrawX, DrawY, Ball_size,
 	  
     always_comb
     begin:Ball_on_proc
-        if ( ( DistX*DistX + DistY*DistY) <= (Size * Size) ) 
+        if (( DistX*DistX + DistY*DistY) <= (Size * Size) ) 
             ball_on = 1'b1;
         else 
             ball_on = 1'b0;
      end 
        
-    always_comb
-    begin:RGB_Display
-        if ((ball_on == 1'b1)) 
-        begin 
-            Red = 8'hff;
-            Green = 8'h55;
-            Blue = 8'h00;
-        end       
-        else 
-        begin 
-            Red = 8'h00; 
-            Green = 8'h00;
-            Blue = 8'h7f - DrawX[9:3];
-        end      
-    end 
+	 always_comb
+    begin:paddle1_on_proc
+			if ((DrawX >= Paddle1X - Paddle1W) &&
+				(DrawX <= Paddle1X + Paddle1W) &&
+				(DrawY >= Paddle1Y - Paddle1L) &&
+				(DrawY <= Paddle1Y + Paddle1L))
+            paddle1_on = 1'b1;
+			else 
+            paddle1_on = 1'b0;
+     end 
+	
+	 always_comb
+    begin:paddle2_on_proc
+			if ((DrawX >= Paddle2X - Paddle2W) &&
+				(DrawX <= Paddle2X + Paddle2W) &&
+				(DrawY >= Paddle2Y - Paddle2L) &&
+				(DrawY <= Paddle2Y + Paddle2L))
+					paddle2_on = 1'b1;
+			else 
+					paddle2_on = 1'b0;
+     end 
+		 
+	always_comb
+	begin:RGB_Display
+		  //background (grey)
+			Red = 8'hC0;
+			Green = 8'hC0;
+			Blue = 8'hC0;
+			
+			if ((ball_on == 1'b1)) 
+				begin 
+				//ball color (red)
+					Red = 8'hff;
+					Green = 8'h00;
+					Blue = 8'h00;
+				end  
+			if ((paddle1_on == 1'b1)) 
+				begin 
+				//paddle1 color (white)
+					Red = 8'hff;
+					Green = 8'hff;
+					Blue = 8'hff;
+				end  
+			if ((paddle2_on == 1'b1)) 
+				begin 
+				//paddle2 color (white)
+					Red = 8'hff;
+					Green = 8'hff;
+					Blue = 8'hff;
+				end  
+	end 
     
 endmodule

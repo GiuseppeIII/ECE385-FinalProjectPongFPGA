@@ -21,12 +21,12 @@ module  ball ( input Reset, frame_clk,
 	 
     parameter [9:0] Ball_X_Center=320;  // Center position on the X axis
     parameter [9:0] Ball_Y_Center=240;  // Center position on the Y axis
-    parameter [9:0] Ball_X_Min=0;       // Leftmost point on the X axis
-    parameter [9:0] Ball_X_Max=639;     // Rightmost point on the X axis
-    parameter [9:0] Ball_Y_Min=0;       // Topmost point on the Y axis
-    parameter [9:0] Ball_Y_Max=479;     // Bottommost point on the Y axis
-    parameter [9:0] Ball_X_Step=1;      // Step size on the X axis
-    parameter [9:0] Ball_Y_Step=1;      // Step size on the Y axis
+    parameter [9:0] Ball_X_Min=25;       // Leftmost point on the X axis
+    parameter [9:0] Ball_X_Max=600;     // Rightmost point on the X axis
+    parameter [9:0] Ball_Y_Min=20;       // Topmost point on the Y axis
+    parameter [9:0] Ball_Y_Max=461;     // Bottommost point on the Y axis
+    parameter [9:0] Ball_X_Step=2;      // Step size on the X axis
+    parameter [9:0] Ball_Y_Step=2;      // Step size on the Y axis
 
     assign Ball_Size = 4;  // assigns the value 4 as a 10-digit binary number, ie "0000000100"
    

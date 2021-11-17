@@ -21,10 +21,10 @@ module  paddle ( input Reset, frame_clk,
 	 
 	 assign Paddle1_Length = 50;
 	 assign Paddle2_Length = 50;
-	 assign Paddle1_Width = 10;
-	 assign Paddle2_Width = 10;
-	 assign Paddle1X_Pos = 10;
-	 assign Paddle2X_Pos = 629;
+	 assign Paddle1_Width = 5;
+	 assign Paddle2_Width = 5;
+	 assign Paddle1X_Pos = 60;
+	 assign Paddle2X_Pos = 550;
    
     always_ff @ (posedge Reset or posedge frame_clk )
     begin: Move_Ball
@@ -51,10 +51,10 @@ module  paddle ( input Reset, frame_clk,
 				
 				//Paddle 2
 				case (keycode)					  
-					8'h51 : begin
+					8'h52 : begin
 						Paddle2Y_Motion <= -1;//UpArrow
 					end	  
-					8'h52 : begin
+					8'h51 : begin
 						Paddle2Y_Motion <= 1;//DownArrow
 					end
 					default: ;

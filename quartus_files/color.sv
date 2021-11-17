@@ -72,10 +72,10 @@ module color (	input			[9:0] BallX, BallY, DrawX, DrawY, Ball_size,
 		 
 	always_comb
 	begin:RGB_Display
-		  //background (grey)
-			Red = 8'hC0;
-			Green = 8'hC0;
-			Blue = 8'hC0;
+		  //background (changing blue)
+				Red = 8'h00; 
+				Green = 8'h00;
+				Blue = 8'h7f - DrawX[9:3];
 			
 			if ((ball_on == 1'b1)) 
 				begin 

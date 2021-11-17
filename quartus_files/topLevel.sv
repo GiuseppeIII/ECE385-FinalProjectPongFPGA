@@ -166,7 +166,11 @@ vgaController vga(.Clk(MAX10_CLK1_50), .Reset(Reset_h), .hs(VGA_HS), .vs(VGA_VS)
                          .blank(blank), .sync(sync), .DrawX(drawxsig), .DrawY(drawysig));
 
 
-ball vga_ball(.Reset(Reset_h), .frame_clk(VGA_VS), .keycode(keycode), .BallX(ballxsig), .BallY(ballysig), .BallS(ballsizesig));
+ball vga_ball(
+.Reset(Reset_h), .frame_clk(VGA_VS), .keycode(keycode), 
+.Paddle1X(paddle1Xsig), .Paddle1Y(paddle1Ysig), .Paddle2X(paddle2Xsig), .Paddle2Y(paddle2Ysig),
+.Paddle1L(paddle1Lsig), .Paddle1W(paddle1Wsig), .Paddle2L(paddle2Lsig), .Paddle2W(paddle2Wsig),
+.BallX(ballxsig), .BallY(ballysig), .BallS(ballsizesig));
 
 paddle vga_paddles(
 .Reset(Reset_h), .frame_clk(VGA_VS), .keycode(keycode), 

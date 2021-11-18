@@ -1,5 +1,5 @@
 Flow report for FinalProject
-Thu Nov 18 16:18:44 2021
+Thu Nov 18 16:30:07 2021
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -40,24 +40,24 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Thu Nov 18 16:18:44 2021       ;
+; Flow Status                        ; Successful - Thu Nov 18 16:30:07 2021       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; FinalProject                                ;
 ; Top-level Entity Name              ; topLevel                                    ;
 ; Family                             ; MAX 10                                      ;
 ; Device                             ; 10M50DAF484C7G                              ;
 ; Timing Models                      ; Final                                       ;
-; Total logic elements               ; 4,232 / 49,760 ( 9 % )                      ;
-;     Total combinational functions  ; 3,638 / 49,760 ( 7 % )                      ;
-;     Dedicated logic registers      ; 2,502 / 49,760 ( 5 % )                      ;
-; Total registers                    ; 2571                                        ;
-; Total pins                         ; 141 / 360 ( 39 % )                          ;
+; Total logic elements               ; 4,615                                       ;
+;     Total combinational functions  ; 3,634                                       ;
+;     Dedicated logic registers      ; 2,549                                       ;
+; Total registers                    ; 2549                                        ;
+; Total pins                         ; 141                                         ;
 ; Total virtual pins                 ; 0                                           ;
-; Total memory bits                  ; 11,392 / 1,677,312 ( < 1 % )                ;
-; Embedded Multiplier 9-bit elements ; 0 / 288 ( 0 % )                             ;
-; Total PLLs                         ; 1 / 4 ( 25 % )                              ;
-; UFM blocks                         ; 0 / 1 ( 0 % )                               ;
-; ADC blocks                         ; 0 / 2 ( 0 % )                               ;
+; Total memory bits                  ; 11,392                                      ;
+; Embedded Multiplier 9-bit elements ; 0                                           ;
+; Total PLLs                         ; 1                                           ;
+; UFM blocks                         ; 0                                           ;
+; ADC blocks                         ; 0                                           ;
 +------------------------------------+---------------------------------------------+
 
 
@@ -66,7 +66,7 @@ refer to the applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 11/18/2021 16:17:05 ;
+; Start date & time ; 11/18/2021 16:29:08 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; FinalProject        ;
 +-------------------+---------------------+
@@ -77,7 +77,7 @@ refer to the applicable agreement for further details.
 +-------------------------------------+--------------------------------------------------------------------+---------------+-------------------+----------------+
 ; Assignment Name                     ; Value                                                              ; Default Value ; Entity Name       ; Section Id     ;
 +-------------------------------------+--------------------------------------------------------------------+---------------+-------------------+----------------+
-; COMPILER_SIGNATURE_ID               ; 1096004609711.163727382516760                                      ; --            ; --                ; --             ;
+; COMPILER_SIGNATURE_ID               ; 1096004609711.163727454719664                                      ; --            ; --                ; --             ;
 ; EDA_OUTPUT_DATA_FORMAT              ; Systemverilog Hdl                                                  ; --            ; --                ; eda_simulation ;
 ; EDA_SIMULATION_TOOL                 ; ModelSim-Altera (SystemVerilog)                                    ; <None>        ; --                ; --             ;
 ; EDA_TIME_SCALE                      ; 1 ps                                                               ; --            ; --                ; eda_simulation ;
@@ -114,13 +114,8 @@ refer to the applicable agreement for further details.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:00:46     ; 1.0                     ; 4978 MB             ; 00:00:55                           ;
-; Fitter               ; 00:00:27     ; 1.3                     ; 5709 MB             ; 00:00:46                           ;
-; Assembler            ; 00:00:03     ; 1.0                     ; 4702 MB             ; 00:00:03                           ;
-; Power Analyzer       ; 00:00:06     ; 1.7                     ; 4908 MB             ; 00:00:09                           ;
-; Timing Analyzer      ; 00:00:05     ; 1.8                     ; 4882 MB             ; 00:00:09                           ;
-; EDA Netlist Writer   ; 00:00:03     ; 1.0                     ; 4727 MB             ; 00:00:03                           ;
-; Total                ; 00:01:30     ; --                      ; --                  ; 00:02:05                           ;
+; Analysis & Synthesis ; 00:00:52     ; 1.0                     ; 4983 MB             ; 00:00:58                           ;
+; Total                ; 00:00:52     ; --                      ; --                  ; 00:00:58                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
@@ -130,11 +125,6 @@ refer to the applicable agreement for further details.
 ; Module Name          ; Machine Hostname      ; OS Name    ; OS Version ; Processor type ;
 +----------------------+-----------------------+------------+------------+----------------+
 ; Analysis & Synthesis ; GiuseppeIIIs-PC-Mk-II ; Windows 10 ; 10.0       ; x86_64         ;
-; Fitter               ; GiuseppeIIIs-PC-Mk-II ; Windows 10 ; 10.0       ; x86_64         ;
-; Assembler            ; GiuseppeIIIs-PC-Mk-II ; Windows 10 ; 10.0       ; x86_64         ;
-; Power Analyzer       ; GiuseppeIIIs-PC-Mk-II ; Windows 10 ; 10.0       ; x86_64         ;
-; Timing Analyzer      ; GiuseppeIIIs-PC-Mk-II ; Windows 10 ; 10.0       ; x86_64         ;
-; EDA Netlist Writer   ; GiuseppeIIIs-PC-Mk-II ; Windows 10 ; 10.0       ; x86_64         ;
 +----------------------+-----------------------+------------+------------+----------------+
 
 
@@ -142,11 +132,6 @@ refer to the applicable agreement for further details.
 ; Flow Log ;
 ------------
 quartus_map --read_settings_files=on --write_settings_files=off FinalProject -c FinalProject
-quartus_fit --read_settings_files=off --write_settings_files=off FinalProject -c FinalProject
-quartus_asm --read_settings_files=off --write_settings_files=off FinalProject -c FinalProject
-quartus_pow --read_settings_files=off --write_settings_files=off FinalProject -c FinalProject
-quartus_sta FinalProject -c FinalProject
-quartus_eda --read_settings_files=off --write_settings_files=off FinalProject -c FinalProject
 
 
 

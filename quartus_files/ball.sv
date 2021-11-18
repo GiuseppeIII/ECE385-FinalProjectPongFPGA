@@ -22,7 +22,7 @@ module  ball ( input Reset, frame_clk,
 					output		resetB);
     
     logic [9:0] Ball_X_Pos, Ball_X_Motion, Ball_Y_Pos, Ball_Y_Motion, Ball_Size;
-	 logic [1:0] ledgeCountVal, redgeCountVal, tedgeCountVal, bedgeCountVal;
+	 logic [2:0] ledgeCountVal, redgeCountVal, tedgeCountVal, bedgeCountVal;
 	 logic 		 resetBall;
 	 logic [3:0] score_left, score_right;
 	 
@@ -76,10 +76,10 @@ module  ball ( input Reset, frame_clk,
         begin 
 				if (resetBall)
 					begin
+					resetBall <= 0;
 					Ball_Y_Pos <= Ball_Y_Center;
 					Ball_X_Pos <= Ball_X_Center;
 					Ball_Y_Motion <= 0;
-					resetBall <= 0;
 //					bedgeCountVal <= 0;
 //					tedgeCountVal <= 0;
 //					ledgeCountVal <= 0;
@@ -119,38 +119,38 @@ module  ball ( input Reset, frame_clk,
 					end
 					
 					
-				if (bedgeCountVal > 0 && bedgeCountVal < 3)
+				if (bedgeCountVal > 0 && bedgeCountVal < 12)
 					begin
 					  bedgeCountVal <= bedgeCountVal + 1;
 					end
-				else if (bedgeCountVal == 3)
+				else if (bedgeCountVal == 12)
 					begin
 						bedgeCountVal <= 0;
 					end
 					
-				if (tedgeCountVal > 0 && tedgeCountVal < 3)
+				if (tedgeCountVal > 0 && tedgeCountVal < 12)
 					begin
 					  tedgeCountVal <= tedgeCountVal + 1;
 					end
-				else if (tedgeCountVal == 3)
+				else if (tedgeCountVal == 12)
 					begin
 						tedgeCountVal <= 0;
 					end
 					
-				if (ledgeCountVal > 0 && ledgeCountVal < 3)
+				if (ledgeCountVal > 0 && ledgeCountVal < 12)
 					begin
 					  ledgeCountVal <= ledgeCountVal + 1;
 					end
-				else if (ledgeCountVal == 3)
+				else if (ledgeCountVal == 12)
 					begin
 						ledgeCountVal <= 0;
 					end
 					
-				if (redgeCountVal > 0 && redgeCountVal < 3)
+				if (redgeCountVal > 0 && redgeCountVal < 12)
 					begin
 					  redgeCountVal <= redgeCountVal + 1;
 					end
-				else if (redgeCountVal == 3)
+				else if (redgeCountVal == 12)
 					begin
 						redgeCountVal <= 0;
 					end

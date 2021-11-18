@@ -84412,6 +84412,7 @@ Reset => score_left[0].ACLR
 Reset => score_left[1].ACLR
 Reset => score_left[2].ACLR
 Reset => score_left[3].ACLR
+Reset => resetBall.ACLR
 frame_clk => Ball_X_Pos[0].CLK
 frame_clk => Ball_X_Pos[1].CLK
 frame_clk => Ball_X_Pos[2].CLK
@@ -84468,6 +84469,7 @@ frame_clk => score_left[0].CLK
 frame_clk => score_left[1].CLK
 frame_clk => score_left[2].CLK
 frame_clk => score_left[3].CLK
+frame_clk => resetBall.CLK
 keycode[0] => ~NO_FANOUT~
 keycode[1] => ~NO_FANOUT~
 keycode[2] => ~NO_FANOUT~
@@ -84654,7 +84656,7 @@ scoreR[0] <= score_right[0].DB_MAX_OUTPUT_PORT_TYPE
 scoreR[1] <= score_right[1].DB_MAX_OUTPUT_PORT_TYPE
 scoreR[2] <= score_right[2].DB_MAX_OUTPUT_PORT_TYPE
 scoreR[3] <= score_right[3].DB_MAX_OUTPUT_PORT_TYPE
-resetB <= <GND>
+resetB <= resetBall.DB_MAX_OUTPUT_PORT_TYPE
 
 
 |topLevel|paddle:vga_paddles

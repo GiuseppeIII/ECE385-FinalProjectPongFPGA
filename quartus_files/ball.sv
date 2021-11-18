@@ -38,7 +38,7 @@ module  ball ( input Reset, frame_clk,
     assign Ball_Size = 4;
 	 int paddle1minHeight, paddle1maxHeight, paddle1minWidth, paddle1maxWidth;
 	 int paddle2minHeight, paddle2maxHeight, paddle2minWidth, paddle2maxWidth;
-	 int ballymotion, bally2motion;
+	 int bally1motion, bally2motion;
 	 
 	 assign paddle1minHeight = Paddle1Y - Paddle1L;
 	 assign paddle1maxHeight = Paddle1Y + Paddle1L;
@@ -76,15 +76,16 @@ module  ball ( input Reset, frame_clk,
         begin 
 				if (resetBall)
 					begin
+					Ball_Y_Pos <= Ball_Y_Center;
+					Ball_X_Pos <= Ball_X_Center;
+					Ball_Y_Motion <= 0;
 					resetBall <= 0;
 //					bedgeCountVal <= 0;
 //					tedgeCountVal <= 0;
 //					ledgeCountVal <= 0;
 //					redgeCountVal <= 0;
-					Ball_Y_Motion <= 0;
 //					Ball_X_Motion <= Ball_X_Step;
-					Ball_Y_Pos <= Ball_Y_Center;
-					Ball_X_Pos <= Ball_X_Center;
+
 					end
 					
 				Ball_Y_Motion <= Ball_Y_Motion;

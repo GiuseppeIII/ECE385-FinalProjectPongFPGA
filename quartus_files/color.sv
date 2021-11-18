@@ -102,6 +102,13 @@ module color (	input			[9:0] BallX, BallY, DrawX, DrawY, Ball_size,
 					Green = 8'hff;
 					Blue = 8'hff;
 				end  
+			//offscreen = black
+			if ((DrawX > 639 || DrawY > 479))
+                begin
+                    Red = 8'h00;
+                    Green = 8'h00;
+                    Blue = 8'h00;
+                end
 	end 
     
 endmodule

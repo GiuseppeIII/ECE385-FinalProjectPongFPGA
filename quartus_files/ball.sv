@@ -22,7 +22,7 @@ module  ball ( input Reset, frame_clk,
 					output		resetB);
     
     logic [9:0] Ball_X_Pos, Ball_X_Motion, Ball_Y_Pos, Ball_Y_Motion, Ball_Size;
-	 logic [3:0] ledgeCountVal, redgeCountVal, tedgeCountVal, bedgeCountVal;
+	 logic [5:0] ledgeCountVal, redgeCountVal, tedgeCountVal, bedgeCountVal;
 	 logic 		 resetBall;
 	 logic [3:0] score_left, score_right;
 	 
@@ -56,7 +56,7 @@ module  ball ( input Reset, frame_clk,
 		
     always_ff @ (posedge Reset or posedge frame_clk )
     begin: Move_Ball
-        if (Reset)  // Asynchronous Reset
+        if (Reset)
 		  //initalize ball
         begin 
 				resetBall <= 0;
@@ -71,23 +71,20 @@ module  ball ( input Reset, frame_clk,
 				Ball_Y_Pos <= Ball_Y_Center;
 				Ball_X_Pos <= Ball_X_Center;
         end
-           
+        else if (resetBall)
+		  begin
+				resetBall <= 0;
+				Ball_Y_Pos <= Ball_Y_Center;
+				Ball_X_Pos <= Ball_X_Center;
+				Ball_Y_Motion <= 0;
+				bedgeCountVal <= 0;
+				tedgeCountVal <= 0;
+				ledgeCountVal <= 0;
+				redgeCountVal <= 0;
+				Ball_X_Motion <= Ball_X_Step;
+				end
         else 
-        begin 
-				if (resetBall)
-					begin
-					resetBall <= 0;
-					Ball_Y_Pos <= Ball_Y_Center;
-					Ball_X_Pos <= Ball_X_Center;
-					Ball_Y_Motion <= 0;
-//					bedgeCountVal <= 0;
-//					tedgeCountVal <= 0;
-//					ledgeCountVal <= 0;
-//					redgeCountVal <= 0;
-//					Ball_X_Motion <= Ball_X_Step;
-
-					end
-					
+				begin
 				Ball_Y_Motion <= Ball_Y_Motion;
 				
 				if (((Ball_Y_Pos + Ball_Size) >= Ball_Y_Max) && (bedgeCountVal == 0))  //bottom
@@ -119,38 +116,38 @@ module  ball ( input Reset, frame_clk,
 					end
 					
 					
-				if (bedgeCountVal > 0 && bedgeCountVal < 15)
+				if (bedgeCountVal > 0 && bedgeCountVal < 63)
 					begin
 					  bedgeCountVal <= bedgeCountVal + 1;
 					end
-				else if (bedgeCountVal == 15)
+				else if (bedgeCountVal == 63)
 					begin
 						bedgeCountVal <= 0;
 					end
 					
-				if (tedgeCountVal > 0 && tedgeCountVal < 15)
+				if (tedgeCountVal > 0 && tedgeCountVal < 63)
 					begin
 					  tedgeCountVal <= tedgeCountVal + 1;
 					end
-				else if (tedgeCountVal == 15)
+				else if (tedgeCountVal == 63)
 					begin
 						tedgeCountVal <= 0;
 					end
 					
-				if (ledgeCountVal > 0 && ledgeCountVal < 15)
+				if (ledgeCountVal > 0 && ledgeCountVal < 63)
 					begin
 					  ledgeCountVal <= ledgeCountVal + 1;
 					end
-				else if (ledgeCountVal == 15)
+				else if (ledgeCountVal == 63)
 					begin
 						ledgeCountVal <= 0;
 					end
 					
-				if (redgeCountVal > 0 && redgeCountVal < 15)
+				if (redgeCountVal > 0 && redgeCountVal < 63)
 					begin
 					  redgeCountVal <= redgeCountVal + 1;
 					end
-				else if (redgeCountVal == 15)
+				else if (redgeCountVal == 63)
 					begin
 						redgeCountVal <= 0;
 					end

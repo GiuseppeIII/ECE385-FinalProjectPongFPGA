@@ -20,8 +20,8 @@ module  paddle ( 	input Reset, frame_clk,
 	 parameter [9:0] Paddle1_Y_Step=4;
 	 parameter [9:0] Paddle2_Y_Step=4;
 	 
-	 assign Paddle1_Length = 100;
-	 assign Paddle2_Length = 100;
+	 assign Paddle1_Length = 35;
+	 assign Paddle2_Length = 35;
 	 assign Paddle1_Width = 2;
 	 assign Paddle2_Width = 2;
 	 assign Paddle1X_Pos = 60;

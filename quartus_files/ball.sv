@@ -33,6 +33,7 @@ module  ball ( input Reset, frame_clk,
     assign Ball_Size = 4;  // assigns the value 4 as a 10-digit binary number, ie "0000000100"
 	 int paddle1minHeight, paddle1maxHeight, paddle1minWidth, paddle1maxWidth;
 	 int paddle2minHeight, paddle2maxHeight, paddle2minWidth, paddle2maxWidth;
+	 int ballymotion, bally2motion;
 	 
 	 assign paddle1minHeight = Paddle1Y - Paddle1L;
 	 assign paddle1maxHeight = Paddle1Y + Paddle1L;
@@ -43,6 +44,9 @@ module  ball ( input Reset, frame_clk,
 	 assign paddle2maxHeight = Paddle2Y + Paddle2L;
 	 assign paddle2minWidth = Paddle2X - Paddle2W;
 	 assign paddle2maxWidth = Paddle2X + Paddle2W;
+	 
+	 assign bally1motion = (Ball_Y_Pos - Paddle1Y)>>3;
+	 assign bally2motion = (Ball_Y_Pos - Paddle2Y)>>3;
    
     always_ff @ (posedge Reset or posedge frame_clk )
     begin: Move_Ball
@@ -78,7 +82,9 @@ module  ball ( input Reset, frame_clk,
 					((Ball_Y_Pos + Ball_Size) >= paddle1minHeight ))
 					begin
 						Ball_X_Motion <= Ball_X_Step;
-						Ball_Y_Motion <= (Ball_Y_Pos - Paddle1Y)>>3;
+						Ball_Y_Motion <= bally1motion;
+						if (bally1motion < 0)
+							Ball_Y_Motion <= (~ (bally1motion) + 1'b1);
 					end
 				
 				//if hits paddle2
@@ -87,8 +93,10 @@ module  ball ( input Reset, frame_clk,
 					((Ball_Y_Pos - Ball_Size) <= paddle2maxHeight ) &&
 					((Ball_Y_Pos + Ball_Size) >= paddle2minHeight ))
 					begin
-						Ball_X_Motion <= -Ball_X_Step;
-						Ball_Y_Motion <= (Ball_Y_Pos - Paddle2Y)>>3;
+						Ball_X_Motion <= (~ (Ball_X_Step) + 1'b1);
+						Ball_Y_Motion <= bally2motion;
+						if (bally2motion < 0)
+							Ball_Y_Motion <= (~ (bally2motion) + 1'b1);
 					end
 				
 //				 case (keycode)

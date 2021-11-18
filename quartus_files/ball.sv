@@ -20,7 +20,7 @@ module  ball ( input Reset, frame_clk,
                output [9:0]  BallX, BallY, BallS );
     
     logic [9:0] Ball_X_Pos, Ball_X_Motion, Ball_Y_Pos, Ball_Y_Motion, Ball_Size;
-	 logic [1:0] edgeCountVal;
+	 logic [1:0] ledgeCountVal, redgeCountVal, tedgeCountVal, bedgeCountVal;
 	 
     parameter [9:0] Ball_X_Center=320;  // Center position on the X axis
     parameter [9:0] Ball_Y_Center=240;  // Center position on the Y axis
@@ -55,7 +55,10 @@ module  ball ( input Reset, frame_clk,
         if (Reset)  // Asynchronous Reset
 		  //initalize ball
         begin 
-				edgeCountVal <= 0;
+				bedgeCountVal <= 0;
+				tedgeCountVal <= 0;
+				ledgeCountVal <= 0;
+				redgeCountVal <= 0;
             Ball_Y_Motion <= 0;
 				Ball_X_Motion <= Ball_X_Step;
 				Ball_Y_Pos <= Ball_Y_Center;
@@ -66,36 +69,65 @@ module  ball ( input Reset, frame_clk,
         begin 
 				Ball_Y_Motion <= Ball_Y_Motion;
 				
-				if (((Ball_Y_Pos + Ball_Size) >= Ball_Y_Max) && (edgeCountVal == 0))  // Ball is at the bottom edge, BOUNCE!
+				if (((Ball_Y_Pos + Ball_Size) >= Ball_Y_Max) && (bedgeCountVal == 0))  // Ball is at the bottom edge, BOUNCE!
 					begin
 						Ball_Y_Motion <= (~ (Ball_Y_Motion) + 1'b1);  // 2's complement.
-						edgeCountVal <= edgeCountVal + 1;
+						bedgeCountVal <= bedgeCountVal + 1;
 					end
 				 
-				else if (((Ball_Y_Pos - Ball_Size) <= Ball_Y_Min) && (edgeCountVal == 0))  // Ball is at the top edge, BOUNCE!
+				else if (((Ball_Y_Pos - Ball_Size) <= Ball_Y_Min) && (tedgeCountVal == 0))  // Ball is at the top edge, BOUNCE!
 					begin
 						Ball_Y_Motion <= (~ (Ball_Y_Motion) + 1'b1);
-						edgeCountVal <= edgeCountVal + 1;
+						tedgeCountVal <= tedgeCountVal + 1;
 					end
 					
-				else if (((Ball_X_Pos + Ball_Size) >= Ball_X_Max) && (edgeCountVal == 0))  // Ball is at the Right edge, BOUNCE!
+				else if (((Ball_X_Pos + Ball_Size) >= Ball_X_Max) && (redgeCountVal == 0))  // Ball is at the Right edge, BOUNCE!
 					begin
 					  Ball_X_Motion <= (~ (Ball_X_Motion) + 1'b1);  // 2's complement.
-					  edgeCountVal <= edgeCountVal + 1;
+					  ledgeCountVal <= ledgeCountVal + 1;
 					end
 					
-				else if (((Ball_X_Pos - Ball_Size) <= Ball_X_Min) && (edgeCountVal == 0))  // Ball is at the Left edge, BOUNCE!
+				else if (((Ball_X_Pos - Ball_Size) <= Ball_X_Min) && (ledgeCountVal == 0))  // Ball is at the Left edge, BOUNCE!
 					begin
 					  Ball_X_Motion <= (~ (Ball_X_Motion) + 1'b1);
-					  edgeCountVal <= edgeCountVal + 1;
+					  redgeCountVal <= redgeCountVal + 1;
 					end
-				else if (edgeCountVal > 0 && edgeCountVal < 1)
+					
+					
+				if (bedgeCountVal > 0 && bedgeCountVal < 3)
 					begin
-					  edgeCountVal <= edgeCountVal + 1;
+					  bedgeCountVal <= bedgeCountVal + 1;
 					end
-				else if (edgeCountVal == 1)
+				else if (bedgeCountVal == 3)
 					begin
-						edgeCountVal <= 0;
+						bedgeCountVal <= 0;
+					end
+					
+				if (tedgeCountVal > 0 && tedgeCountVal < 3)
+					begin
+					  tedgeCountVal <= tedgeCountVal + 1;
+					end
+				else if (tedgeCountVal == 3)
+					begin
+						tedgeCountVal <= 0;
+					end
+					
+				if (ledgeCountVal > 0 && ledgeCountVal < 3)
+					begin
+					  ledgeCountVal <= ledgeCountVal + 1;
+					end
+				else if (ledgeCountVal == 3)
+					begin
+						ledgeCountVal <= 0;
+					end
+					
+				if (redgeCountVal > 0 && redgeCountVal < 3)
+					begin
+					  redgeCountVal <= redgeCountVal + 1;
+					end
+				else if (redgeCountVal == 3)
+					begin
+						redgeCountVal <= 0;
 					end
 					 
 				//if hits paddle1

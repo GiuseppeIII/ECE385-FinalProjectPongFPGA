@@ -84412,46 +84412,8 @@ DrawY[9] <= vc[9].DB_MAX_OUTPUT_PORT_TYPE
 
 
 |topLevel|ball:vga_ball
-Reset => Ball_X_Pos[0].ACLR
-Reset => Ball_X_Pos[1].ACLR
-Reset => Ball_X_Pos[2].ACLR
-Reset => Ball_X_Pos[3].ACLR
-Reset => Ball_X_Pos[4].ACLR
-Reset => Ball_X_Pos[5].ACLR
-Reset => Ball_X_Pos[6].PRESET
-Reset => Ball_X_Pos[7].ACLR
-Reset => Ball_X_Pos[8].PRESET
-Reset => Ball_X_Pos[9].ACLR
-Reset => Ball_Y_Pos[0].ACLR
-Reset => Ball_Y_Pos[1].ACLR
-Reset => Ball_Y_Pos[2].ACLR
-Reset => Ball_Y_Pos[3].ACLR
-Reset => Ball_Y_Pos[4].PRESET
-Reset => Ball_Y_Pos[5].PRESET
-Reset => Ball_Y_Pos[6].PRESET
-Reset => Ball_Y_Pos[7].PRESET
-Reset => Ball_Y_Pos[8].ACLR
-Reset => Ball_Y_Pos[9].ACLR
-Reset => Ball_X_Motion[0].ACLR
-Reset => Ball_X_Motion[1].ACLR
-Reset => Ball_X_Motion[2].PRESET
-Reset => Ball_X_Motion[3].ACLR
-Reset => Ball_X_Motion[4].ACLR
-Reset => Ball_X_Motion[5].ACLR
-Reset => Ball_X_Motion[6].ACLR
-Reset => Ball_X_Motion[7].ACLR
-Reset => Ball_X_Motion[8].ACLR
-Reset => Ball_X_Motion[9].ACLR
-Reset => Ball_Y_Motion[0].ACLR
-Reset => Ball_Y_Motion[1].ACLR
-Reset => Ball_Y_Motion[2].ACLR
-Reset => Ball_Y_Motion[3].ACLR
-Reset => Ball_Y_Motion[4].ACLR
-Reset => Ball_Y_Motion[5].ACLR
-Reset => Ball_Y_Motion[6].ACLR
-Reset => Ball_Y_Motion[7].ACLR
-Reset => Ball_Y_Motion[8].ACLR
-Reset => Ball_Y_Motion[9].ACLR
+Reset => Reset.IN2
+frame_clk => edgeCount.CLK
 frame_clk => Ball_X_Pos[0].CLK
 frame_clk => Ball_X_Pos[1].CLK
 frame_clk => Ball_X_Pos[2].CLK
@@ -84670,6 +84632,30 @@ BallS[6] <= <GND>
 BallS[7] <= <GND>
 BallS[8] <= <GND>
 BallS[9] <= <GND>
+
+
+|topLevel|ball:vga_ball|counter_4:edge_count_start
+Reset => counter_4_val[0]~reg0.ACLR
+Reset => counter_4_val[1]~reg0.ACLR
+Reset => counter_4_val[2]~reg0.ACLR
+Count => counter_4_val[0]~reg0.CLK
+Count => counter_4_val[1]~reg0.CLK
+Count => counter_4_val[2]~reg0.CLK
+counter_4_val[0] <= counter_4_val[0]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+counter_4_val[1] <= counter_4_val[1]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+counter_4_val[2] <= counter_4_val[2]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|topLevel|ball:vga_ball|counter_4:edge_count_end
+Reset => counter_4_val[0]~reg0.ACLR
+Reset => counter_4_val[1]~reg0.ACLR
+Reset => counter_4_val[2]~reg0.ACLR
+Count => counter_4_val[0]~reg0.CLK
+Count => counter_4_val[1]~reg0.CLK
+Count => counter_4_val[2]~reg0.CLK
+counter_4_val[0] <= counter_4_val[0]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+counter_4_val[1] <= counter_4_val[1]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+counter_4_val[2] <= counter_4_val[2]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
 |topLevel|paddle:vga_paddles

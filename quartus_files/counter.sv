@@ -8,7 +8,7 @@ always_ff @ (posedge Count or posedge Reset) begin
 			counter_4_val <= 0;
 		else if (counter_4_val == 3)
 				counter_4_val <= 0;
-		else if(Count)
+		else
 			counter_4_val <= counter_4_val + 1;
 	end
 endmodule

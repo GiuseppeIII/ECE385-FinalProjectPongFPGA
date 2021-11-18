@@ -18,24 +18,24 @@ module  ball ( input Reset, frame_clk,
 					input	[9:0] Paddle1X, Paddle1Y, Paddle2X, Paddle2Y, 
 									Paddle1L, Paddle1W, Paddle2L, Paddle2W,	
                output[9:0] BallX, BallY, BallS,
-					output[3:0] scoreL, scoreR);
+					output[3:0] scoreL, scoreR,
+					output		resetB);
     
     logic [9:0] Ball_X_Pos, Ball_X_Motion, Ball_Y_Pos, Ball_Y_Motion, Ball_Size;
 	 logic [1:0] ledgeCountVal, redgeCountVal, tedgeCountVal, bedgeCountVal;
+	 logic 		 resetBall;
 	 logic [3:0] score_left, score_right;
 	 
-    parameter [9:0] Ball_X_Center=320;  // Center position on the X axis
-    parameter [9:0] Ball_Y_Center=240;  // Center position on the Y axis
-    parameter [9:0] Ball_X_Min=33;       // Leftmost point on the X axis
-    parameter [9:0] Ball_X_Max=596;     // Rightmost point on the X axis
-    parameter [9:0] Ball_Y_Min=20;       // Topmost point on the Y axis
-    parameter [9:0] Ball_Y_Max=461;     // Bottommost point on the Y axis
-    parameter [9:0] Ball_X_Step=4;      // Step size on the X axis
-    parameter [9:0] Ball_Y_Step=4;      // Step size on the Y axis
+    parameter [9:0] Ball_X_Center=320;
+    parameter [9:0] Ball_Y_Center=240;
+    parameter [9:0] Ball_X_Min=33;
+    parameter [9:0] Ball_X_Max=596;
+    parameter [9:0] Ball_Y_Min=20;
+    parameter [9:0] Ball_Y_Max=461;
+    parameter [9:0] Ball_X_Step=4; 
+    parameter [9:0] Ball_Y_Step=4;
 
-    assign Ball_Size = 4;  // assigns the value 4 as a 10-digit binary number, ie "0000000100"
-	 assign scoreL = 1;
-	 assign scoreR = 2;
+    assign Ball_Size = 4;
 	 int paddle1minHeight, paddle1maxHeight, paddle1minWidth, paddle1maxWidth;
 	 int paddle2minHeight, paddle2maxHeight, paddle2minWidth, paddle2maxWidth;
 	 int ballymotion, bally2motion;
@@ -59,6 +59,7 @@ module  ball ( input Reset, frame_clk,
         if (Reset)  // Asynchronous Reset
 		  //initalize ball
         begin 
+				resetBall <= 0;
 				score_left <= 0;
 				score_right <= 0;
 				bedgeCountVal <= 0;
@@ -73,30 +74,47 @@ module  ball ( input Reset, frame_clk,
            
         else 
         begin 
+				if (resetBall)
+					begin
+					resetBall <= 0;
+//					bedgeCountVal <= 0;
+//					tedgeCountVal <= 0;
+//					ledgeCountVal <= 0;
+//					redgeCountVal <= 0;
+					Ball_Y_Motion <= 0;
+//					Ball_X_Motion <= Ball_X_Step;
+					Ball_Y_Pos <= Ball_Y_Center;
+					Ball_X_Pos <= Ball_X_Center;
+					end
+					
 				Ball_Y_Motion <= Ball_Y_Motion;
 				
-				if (((Ball_Y_Pos + Ball_Size) >= Ball_Y_Max) && (bedgeCountVal == 0))  // Ball is at the bottom edge, BOUNCE!
+				if (((Ball_Y_Pos + Ball_Size) >= Ball_Y_Max) && (bedgeCountVal == 0))  //bottom
 					begin
 						Ball_Y_Motion <= (~ (Ball_Y_Motion) + 1'b1);
 						bedgeCountVal <= bedgeCountVal + 1;
 					end
 				 
-				else if (((Ball_Y_Pos - Ball_Size) <= Ball_Y_Min) && (tedgeCountVal == 0))  // Ball is at the top edge, BOUNCE!
+				else if (((Ball_Y_Pos - Ball_Size) <= Ball_Y_Min) && (tedgeCountVal == 0))  //top
 					begin
 						Ball_Y_Motion <= (~ (Ball_Y_Motion) + 1'b1);
 						tedgeCountVal <= tedgeCountVal + 1;
 					end
 					
-				else if (((Ball_X_Pos + Ball_Size) >= Ball_X_Max) && (redgeCountVal == 0))  // Ball is at the Right edge, BOUNCE!
+				else if (((Ball_X_Pos + Ball_Size) >= Ball_X_Max) && (redgeCountVal == 0))  //right
 					begin
 					  Ball_X_Motion <= (~ (Ball_X_Motion) + 1'b1); 
 					  redgeCountVal <= redgeCountVal + 1;
+					  score_left <= score_left + 1;
+					  resetBall <= 1;
 					end
 					
-				else if (((Ball_X_Pos - Ball_Size) <= Ball_X_Min) && (ledgeCountVal == 0))  // Ball is at the Left edge, BOUNCE!
+				else if (((Ball_X_Pos - Ball_Size) <= Ball_X_Min) && (ledgeCountVal == 0))  //left
 					begin
 					  Ball_X_Motion <= (~ (Ball_X_Motion) + 1'b1);
 					  ledgeCountVal <= ledgeCountVal + 1;
+					  score_right <= score_right + 1;
+					  resetBall <= 1;
 					end
 					
 					
@@ -160,44 +178,15 @@ module  ball ( input Reset, frame_clk,
 							Ball_Y_Motion <= (~ (bally2motion) + 1'b1);
 					end
 				
-//				 case (keycode)
-//					8'h04 : begin
-//								if ((Ball_X_Pos - Ball_Size) > Ball_X_Min)
-//									begin
-//										Ball_X_Motion <= -Ball_X_Step;//A
-//										Ball_Y_Motion<= 0;
-//									end
-//							  end    
-//					8'h07 : begin
-//								if ((Ball_X_Pos + Ball_Size) < Ball_X_Max)
-//									begin	
-//										Ball_X_Motion <= Ball_X_Step;//D
-//										Ball_Y_Motion <= 0;	
-//									end
-//							  end 
-//					8'h16 : begin
-//								if ((Ball_Y_Pos + Ball_Size) < Ball_Y_Max)
-//									begin	
-//										Ball_Y_Motion <= Ball_Y_Step;//S
-//										Ball_X_Motion <= 0;		
-//									end   
-//							 end		  
-//					8'h1A : begin
-//								if ((Ball_Y_Pos - Ball_Size) > Ball_Y_Min)
-//									begin
-//										Ball_Y_Motion <= -Ball_Y_Step;//W
-//										Ball_X_Motion <= 0;
-//									end
-//							 end	  
-//					default: ;
-//			   endcase
 				 
-				Ball_Y_Pos <= (Ball_Y_Pos + Ball_Y_Motion);  // Update ball position
+				Ball_Y_Pos <= (Ball_Y_Pos + Ball_Y_Motion);
 				Ball_X_Pos <= (Ball_X_Pos + Ball_X_Motion);
 			
 		end  
     end
-		 
+	assign resetB =  resetBall;
+	assign scoreL = score_left;
+	assign scoreR = score_right;
 	assign BallX = Ball_X_Pos;
 	assign BallY = Ball_Y_Pos;
 	assign BallS = Ball_Size;

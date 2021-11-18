@@ -1,6 +1,6 @@
 //Paddle 1 is left, Paddle 2 is right
 
-module  paddle ( 	input Reset, frame_clk,
+module  paddle ( 	input Reset, frame_clk, resetB,
 						input [7:0] 	keycode,
 						output [9:0]  	Paddle1X, Paddle1Y, Paddle2X, Paddle2Y, 
 										Paddle1L, Paddle1W, Paddle2L, Paddle2W);
@@ -27,9 +27,9 @@ module  paddle ( 	input Reset, frame_clk,
 	 assign Paddle1X_Pos = 60;
 	 assign Paddle2X_Pos = 550;
    
-    always_ff @ (posedge Reset or posedge frame_clk )
+    always_ff @ (posedge Reset or posedge frame_clk or posedge resetB )
     begin: Move_Ball
-        if (Reset)  // Asynchronous Reset
+        if (Reset || resetB)  // Asynchronous Reset
         begin 
             Paddle1Y_Motion <= 10'd0;
 				Paddle2Y_Motion <= 10'd0;

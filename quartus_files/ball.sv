@@ -118,7 +118,7 @@ module  ball ( input Reset, frame_clk,
 					
 				if (bedgeCountVal > 0 && bedgeCountVal < 63)
 					begin
-					  bedgeCountVal <= bedgeCountVal + 1;
+						bedgeCountVal <= bedgeCountVal + 1;
 					end
 				else if (bedgeCountVal == 63)
 					begin
@@ -159,6 +159,10 @@ module  ball ( input Reset, frame_clk,
 					((Ball_Y_Pos + Ball_Size) >= paddle1minHeight ))
 					begin
 						Ball_X_Motion <= Ball_X_Step;
+						ledgeCountVal <= 0;
+						redgeCountVal <= 0;
+						tedgeCountVal <= 0; 
+						bedgeCountVal <= 0;
 						Ball_Y_Motion <= bally1motion;
 						if (bally1motion < 0)
 							Ball_Y_Motion <= (~ (bally1motion) + 1'b1);
@@ -171,11 +175,20 @@ module  ball ( input Reset, frame_clk,
 					((Ball_Y_Pos + Ball_Size) >= paddle2minHeight ))
 					begin
 						Ball_X_Motion <= (~ (Ball_X_Step) + 1'b1);
+						ledgeCountVal <= 0;
+						redgeCountVal <= 0;
+						tedgeCountVal <= 0; 
+						bedgeCountVal <= 0;
 						Ball_Y_Motion <= bally2motion;
 						if (bally2motion < 0)
 							Ball_Y_Motion <= (~ (bally2motion) + 1'b1);
 					end
 				
+				if (( (score_left == 7) || (score_right == 7)))
+					begin
+						score_right<=0;
+						score_left<=0;
+					end
 				 
 				Ball_Y_Pos <= (Ball_Y_Pos + Ball_Y_Motion);
 				Ball_X_Pos <= (Ball_X_Pos + Ball_X_Motion);

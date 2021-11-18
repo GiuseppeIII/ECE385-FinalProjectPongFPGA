@@ -22,13 +22,13 @@ LEDR[6] <= finalProject_soc:u0.leds_export
 LEDR[7] <= finalProject_soc:u0.leds_export
 LEDR[8] <= finalProject_soc:u0.leds_export
 LEDR[9] <= finalProject_soc:u0.leds_export
-HEX0[0] <= hexDriver:hex_driver0.port1
-HEX0[1] <= hexDriver:hex_driver0.port1
-HEX0[2] <= hexDriver:hex_driver0.port1
-HEX0[3] <= hexDriver:hex_driver0.port1
-HEX0[4] <= hexDriver:hex_driver0.port1
-HEX0[5] <= hexDriver:hex_driver0.port1
-HEX0[6] <= hexDriver:hex_driver0.port1
+HEX0[0] <= <VCC>
+HEX0[1] <= finalProject_soc:u0.leds_export
+HEX0[2] <= finalProject_soc:u0.leds_export
+HEX0[3] <= <VCC>
+HEX0[4] <= <VCC>
+HEX0[5] <= <VCC>
+HEX0[6] <= finalProject_soc:u0.leds_export
 HEX0[7] <= <VCC>
 HEX1[0] <= hexDriver:hex_driver1.port1
 HEX1[1] <= hexDriver:hex_driver1.port1
@@ -46,13 +46,13 @@ HEX2[4] <= <VCC>
 HEX2[5] <= <VCC>
 HEX2[6] <= finalProject_soc:u0.leds_export
 HEX2[7] <= <VCC>
-HEX3[0] <= hexDriver:hex_driver3.port1
-HEX3[1] <= hexDriver:hex_driver3.port1
-HEX3[2] <= hexDriver:hex_driver3.port1
-HEX3[3] <= hexDriver:hex_driver3.port1
-HEX3[4] <= hexDriver:hex_driver3.port1
-HEX3[5] <= hexDriver:hex_driver3.port1
-HEX3[6] <= hexDriver:hex_driver3.port1
+HEX3[0] <= <VCC>
+HEX3[1] <= finalProject_soc:u0.leds_export
+HEX3[2] <= finalProject_soc:u0.leds_export
+HEX3[3] <= <VCC>
+HEX3[4] <= <VCC>
+HEX3[5] <= <VCC>
+HEX3[6] <= finalProject_soc:u0.leds_export
 HEX3[7] <= <VCC>
 HEX4[0] <= hexDriver:hex_driver4.port1
 HEX4[1] <= hexDriver:hex_driver4.port1
@@ -140,62 +140,6 @@ ARDUINO_IO[13] <> ARDUINO_IO[13]
 ARDUINO_IO[14] <> <UNC>
 ARDUINO_IO[15] <> <UNC>
 ARDUINO_RESET_N <> ARDUINO_RESET_N
-
-
-|topLevel|hexDriver:hex_driver4
-In0[0] => Decoder0.IN3
-In0[1] => Decoder0.IN2
-In0[2] => Decoder0.IN1
-In0[3] => Decoder0.IN0
-Out0[0] <= WideOr6.DB_MAX_OUTPUT_PORT_TYPE
-Out0[1] <= WideOr5.DB_MAX_OUTPUT_PORT_TYPE
-Out0[2] <= WideOr4.DB_MAX_OUTPUT_PORT_TYPE
-Out0[3] <= WideOr3.DB_MAX_OUTPUT_PORT_TYPE
-Out0[4] <= WideOr2.DB_MAX_OUTPUT_PORT_TYPE
-Out0[5] <= WideOr1.DB_MAX_OUTPUT_PORT_TYPE
-Out0[6] <= WideOr0.DB_MAX_OUTPUT_PORT_TYPE
-
-
-|topLevel|hexDriver:hex_driver3
-In0[0] => Decoder0.IN3
-In0[1] => Decoder0.IN2
-In0[2] => Decoder0.IN1
-In0[3] => Decoder0.IN0
-Out0[0] <= WideOr6.DB_MAX_OUTPUT_PORT_TYPE
-Out0[1] <= WideOr5.DB_MAX_OUTPUT_PORT_TYPE
-Out0[2] <= WideOr4.DB_MAX_OUTPUT_PORT_TYPE
-Out0[3] <= WideOr3.DB_MAX_OUTPUT_PORT_TYPE
-Out0[4] <= WideOr2.DB_MAX_OUTPUT_PORT_TYPE
-Out0[5] <= WideOr1.DB_MAX_OUTPUT_PORT_TYPE
-Out0[6] <= WideOr0.DB_MAX_OUTPUT_PORT_TYPE
-
-
-|topLevel|hexDriver:hex_driver1
-In0[0] => Decoder0.IN3
-In0[1] => Decoder0.IN2
-In0[2] => Decoder0.IN1
-In0[3] => Decoder0.IN0
-Out0[0] <= WideOr6.DB_MAX_OUTPUT_PORT_TYPE
-Out0[1] <= WideOr5.DB_MAX_OUTPUT_PORT_TYPE
-Out0[2] <= WideOr4.DB_MAX_OUTPUT_PORT_TYPE
-Out0[3] <= WideOr3.DB_MAX_OUTPUT_PORT_TYPE
-Out0[4] <= WideOr2.DB_MAX_OUTPUT_PORT_TYPE
-Out0[5] <= WideOr1.DB_MAX_OUTPUT_PORT_TYPE
-Out0[6] <= WideOr0.DB_MAX_OUTPUT_PORT_TYPE
-
-
-|topLevel|hexDriver:hex_driver0
-In0[0] => Decoder0.IN3
-In0[1] => Decoder0.IN2
-In0[2] => Decoder0.IN1
-In0[3] => Decoder0.IN0
-Out0[0] <= WideOr6.DB_MAX_OUTPUT_PORT_TYPE
-Out0[1] <= WideOr5.DB_MAX_OUTPUT_PORT_TYPE
-Out0[2] <= WideOr4.DB_MAX_OUTPUT_PORT_TYPE
-Out0[3] <= WideOr3.DB_MAX_OUTPUT_PORT_TYPE
-Out0[4] <= WideOr2.DB_MAX_OUTPUT_PORT_TYPE
-Out0[5] <= WideOr1.DB_MAX_OUTPUT_PORT_TYPE
-Out0[6] <= WideOr0.DB_MAX_OUTPUT_PORT_TYPE
 
 
 |topLevel|finalProject_soc:u0
@@ -84686,6 +84630,14 @@ BallS[6] <= <GND>
 BallS[7] <= <GND>
 BallS[8] <= <GND>
 BallS[9] <= <GND>
+scoreL[0] <= <VCC>
+scoreL[1] <= <GND>
+scoreL[2] <= <GND>
+scoreL[3] <= <GND>
+scoreR[0] <= <GND>
+scoreR[1] <= <VCC>
+scoreR[2] <= <GND>
+scoreR[3] <= <GND>
 
 
 |topLevel|paddle:vga_paddles
@@ -85268,5 +85220,33 @@ Blue[4] <= Blue.DB_MAX_OUTPUT_PORT_TYPE
 Blue[5] <= Blue.DB_MAX_OUTPUT_PORT_TYPE
 Blue[6] <= Blue.DB_MAX_OUTPUT_PORT_TYPE
 Blue[7] <= Blue.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|topLevel|hexDriver:hex_driver4
+In0[0] => Decoder0.IN3
+In0[1] => Decoder0.IN2
+In0[2] => Decoder0.IN1
+In0[3] => Decoder0.IN0
+Out0[0] <= WideOr6.DB_MAX_OUTPUT_PORT_TYPE
+Out0[1] <= WideOr5.DB_MAX_OUTPUT_PORT_TYPE
+Out0[2] <= WideOr4.DB_MAX_OUTPUT_PORT_TYPE
+Out0[3] <= WideOr3.DB_MAX_OUTPUT_PORT_TYPE
+Out0[4] <= WideOr2.DB_MAX_OUTPUT_PORT_TYPE
+Out0[5] <= WideOr1.DB_MAX_OUTPUT_PORT_TYPE
+Out0[6] <= WideOr0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|topLevel|hexDriver:hex_driver1
+In0[0] => Decoder0.IN3
+In0[1] => Decoder0.IN2
+In0[2] => Decoder0.IN1
+In0[3] => Decoder0.IN0
+Out0[0] <= WideOr6.DB_MAX_OUTPUT_PORT_TYPE
+Out0[1] <= WideOr5.DB_MAX_OUTPUT_PORT_TYPE
+Out0[2] <= WideOr4.DB_MAX_OUTPUT_PORT_TYPE
+Out0[3] <= WideOr3.DB_MAX_OUTPUT_PORT_TYPE
+Out0[4] <= WideOr2.DB_MAX_OUTPUT_PORT_TYPE
+Out0[5] <= WideOr1.DB_MAX_OUTPUT_PORT_TYPE
+Out0[6] <= WideOr0.DB_MAX_OUTPUT_PORT_TYPE
 
 

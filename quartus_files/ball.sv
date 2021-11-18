@@ -17,10 +17,12 @@ module  ball ( input Reset, frame_clk,
 					input [7:0] keycode,
 					input	[9:0] Paddle1X, Paddle1Y, Paddle2X, Paddle2Y, 
 									Paddle1L, Paddle1W, Paddle2L, Paddle2W,	
-               output [9:0]  BallX, BallY, BallS );
+               output[9:0] BallX, BallY, BallS,
+					output[3:0] scoreL, scoreR);
     
     logic [9:0] Ball_X_Pos, Ball_X_Motion, Ball_Y_Pos, Ball_Y_Motion, Ball_Size;
 	 logic [1:0] ledgeCountVal, redgeCountVal, tedgeCountVal, bedgeCountVal;
+	 logic [3:0] score_left, score_right;
 	 
     parameter [9:0] Ball_X_Center=320;  // Center position on the X axis
     parameter [9:0] Ball_Y_Center=240;  // Center position on the Y axis
@@ -32,6 +34,8 @@ module  ball ( input Reset, frame_clk,
     parameter [9:0] Ball_Y_Step=4;      // Step size on the Y axis
 
     assign Ball_Size = 4;  // assigns the value 4 as a 10-digit binary number, ie "0000000100"
+	 assign scoreL = 1;
+	 assign scoreR = 2;
 	 int paddle1minHeight, paddle1maxHeight, paddle1minWidth, paddle1maxWidth;
 	 int paddle2minHeight, paddle2maxHeight, paddle2minWidth, paddle2maxWidth;
 	 int ballymotion, bally2motion;
@@ -55,6 +59,8 @@ module  ball ( input Reset, frame_clk,
         if (Reset)  // Asynchronous Reset
 		  //initalize ball
         begin 
+				score_left <= 0;
+				score_right <= 0;
 				bedgeCountVal <= 0;
 				tedgeCountVal <= 0;
 				ledgeCountVal <= 0;
@@ -136,7 +142,7 @@ module  ball ( input Reset, frame_clk,
 					((Ball_Y_Pos - Ball_Size) <= paddle1maxHeight ) &&
 					((Ball_Y_Pos + Ball_Size) >= paddle1minHeight ))
 					begin
-						Ball_X_Motion <= (~ (Ball_X_Step) + 1'b1);
+						Ball_X_Motion <= Ball_X_Step;
 						Ball_Y_Motion <= bally1motion;
 						if (bally1motion < 0)
 							Ball_Y_Motion <= (~ (bally1motion) + 1'b1);

@@ -95,21 +95,23 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	assign ARDUINO_IO[6] = 1'b1;
 	
 	//HEX drivers to convert numbers to HEX output
-	hexDriver hex_driver4 (hex_num_4, HEX4[6:0]);
-	assign HEX4[7] = 1'b1;
-	
-	hexDriver hex_driver3 (hex_num_3, HEX3[6:0]);
-	assign HEX3[7] = 1'b1;
-	
-	hexDriver hex_driver1 (hex_num_1, HEX1[6:0]);
-	assign HEX1[7] = 1'b1;
-	
-	hexDriver hex_driver0 (hex_num_0, HEX0[6:0]);
-	assign HEX0[7] = 1'b1;
+//	hexDriver hex_driver4 (hex_num_4, HEX4[6:0]);
+//	assign HEX4[7] = 1'b1;
+//	
+//	hexDriver hex_driver3 (hex_num_3, HEX3[6:0]);
+//	assign HEX3[7] = 1'b1;
+//	
+//	hexDriver hex_driver1 (hex_num_1, HEX1[6:0]);
+//	assign HEX1[7] = 1'b1;
+//	
+//	hexDriver hex_driver0 (hex_num_0, HEX0[6:0]);
+//	assign HEX0[7] = 1'b1;
 	
 	//fill in the hundreds digit as well as the negative sign
 	assign HEX5 = {1'b1, ~signs[1], 3'b111, ~hundreds[1], ~hundreds[1], 1'b1};
 	assign HEX2 = {1'b1, ~signs[0], 3'b111, ~hundreds[0], ~hundreds[0], 1'b1};
+	assign HEX3 = {1'b1, ~signs[0], 3'b111, ~hundreds[0], ~hundreds[0], 1'b1};
+	assign HEX0 = {1'b1, ~signs[0], 3'b111, ~hundreds[0], ~hundreds[0], 1'b1};
 	
 	
 	//Assign one button to reset
@@ -153,7 +155,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 		.usb_gpx_export(USB_GPX),
 		
 		//LEDs and 
-		.hex_digits_export({hex_num_4, hex_num_3, hex_num_1, hex_num_0}),
+//		.hex_digits_export({hex_num_4, hex_num_3, hex_num_1, hex_num_0}),
 		.leds_export({hundreds, signs, LEDR}),
 		.keycode_export(keycode)
 		
@@ -170,7 +172,7 @@ ball vga_ball(
 .Reset(Reset_h), .frame_clk(VGA_VS), .keycode(keycode), 
 .Paddle1X(paddle1Xsig), .Paddle1Y(paddle1Ysig), .Paddle2X(paddle2Xsig), .Paddle2Y(paddle2Ysig),
 .Paddle1L(paddle1Lsig), .Paddle1W(paddle1Wsig), .Paddle2L(paddle2Lsig), .Paddle2W(paddle2Wsig),
-.BallX(ballxsig), .BallY(ballysig), .BallS(ballsizesig));
+.BallX(ballxsig), .BallY(ballysig), .BallS(ballsizesig), .scoreL(hex_num_4), .scoreR(hex_num_1));
 
 paddle vga_paddles(
 .Reset(Reset_h), .frame_clk(VGA_VS), .keycode(keycode), 
@@ -183,5 +185,17 @@ color vga_color_mapper(
 .BallX(ballxsig), .BallY(ballysig), .Ball_size(ballsizesig),
 .DrawX(drawxsig), .DrawY(drawysig),
 .Red(Red), .Green(Green), .Blue(Blue));
+
+hexDriver hex_driver4 (hex_num_4, HEX4[6:0]);
+assign HEX4[7] = 1'b1;
+	
+//hexDriver hex_driver3 (hex_num_3, HEX3[6:0]);
+//assign HEX3[7] = 1'b1;
+	
+hexDriver hex_driver1 (hex_num_1, HEX1[6:0]);
+assign HEX1[7] = 1'b1;
+	
+//hexDriver hex_driver0 (hex_num_0, HEX0[6:0]);
+//assign HEX0[7] = 1'b1;
 
 endmodule

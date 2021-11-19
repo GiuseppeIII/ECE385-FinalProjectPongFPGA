@@ -1,4 +1,4 @@
-module font_rom ( input [8:0]	addr,
+module numRom ( input [8:0]	addr,
 						output [31:0]	data
 					 );
 

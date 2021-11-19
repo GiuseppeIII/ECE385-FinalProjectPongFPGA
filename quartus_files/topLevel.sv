@@ -189,7 +189,7 @@ color vga_color_mapper(
 .Paddle1X(paddle1Xsig), .Paddle1Y(paddle1Ysig), .Paddle2X(paddle2Xsig), .Paddle2Y(paddle2Ysig),
 .Paddle1L(paddle1Lsig), .Paddle1W(paddle1Wsig), .Paddle2L(paddle2Lsig), .Paddle2W(paddle2Wsig),
 .BallX(ballxsig), .BallY(ballysig), .Ball_size(ballsizesig),
-.DrawX(drawxsig), .DrawY(drawysig),
+.DrawX(drawxsig), .DrawY(drawysig), .scoreL(hex_num_4), .scoreR(hex_num_1),
 .Red(Red), .Green(Green), .Blue(Blue));
 
 hexDriver hex_driver4 (hex_num_4, HEX4[6:0]);

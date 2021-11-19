@@ -16,7 +16,8 @@
 module color (	input			[9:0] BallX, BallY, DrawX, DrawY, Ball_size,
 					input			[9:0] Paddle1X, Paddle1Y, Paddle2X, Paddle2Y, 
 											Paddle1L, Paddle1W, Paddle2L, Paddle2W,	
-					input			[3:0] scoreL, scoreR,			
+					input			[3:0] scoreL, scoreR,
+					input					paddle1Hit, paddle2Hit,
 					output logic[7:0] Red, Green, Blue );
 					
     logic ball_on;
@@ -94,34 +95,10 @@ module color (	input			[9:0] BallX, BallY, DrawX, DrawY, Ball_size,
 	begin:RGB_Display
 
 		  //background (blue)
-				Red = 8'h00; 
-				Green = 8'h00;
-				Blue = 8'h7f;
+			Red = 8'h00; 
+			Green = 8'h00;
+			Blue = 8'h7f;
 			
-			if ((ball_on == 1'b1)) 
-				begin 
-				//ball color (red)
-					Red = 8'hff;
-					Green = 8'h00;
-					Blue = 8'h00;
-				end  
-				
-			if ((paddle1_on == 1'b1)) 
-				begin 
-				//paddle1 color (white)
-					Red = 8'hff;
-					Green = 8'hff;
-					Blue = 8'hff;
-				end  
-				
-			if ((paddle2_on == 1'b1)) 
-				begin 
-				//paddle2 color (white)
-					Red = 8'hff;
-					Green = 8'hff;
-					Blue = 8'hff;
-				end  
-				 
 			score1_addr = {scoreL, score1Y[5:0]};
 			score2_addr = {scoreR, score2Y[5:0]};
 			numCell1 = score1X[4:0];
@@ -161,6 +138,51 @@ module color (	input			[9:0] BallX, BallY, DrawX, DrawY, Ball_size,
 							Blue = 8'h7f;
 						end
 				end
+			
+			if ((ball_on == 1'b1)) 
+				begin 
+				//ball color (red)
+					Red = 8'hff;
+					Green = 8'h00;
+					Blue = 8'h00;
+				end  
+				
+			if ((paddle1_on == 1'b1)) 
+				begin 
+				if (paddle1Hit)
+					//color red
+					begin
+					Red = 8'hff;
+					Green = 8'h00;
+					Blue = 8'h00;
+					end
+				else
+					//paddle1 color (white)
+					begin
+					Red = 8'hff;
+					Green = 8'hff;
+					Blue = 8'hff;
+					end  
+				end
+				
+			if ((paddle2_on == 1'b1)) 
+				begin 
+				if (paddle2Hit)
+					//color red
+					begin
+					Red = 8'hff;
+					Green = 8'h00;
+					Blue = 8'h00;
+					end
+				else
+					//paddle1 color (white)
+					begin
+					Red = 8'hff;
+					Green = 8'hff;
+					Blue = 8'hff;
+					end  
+				end 
+				 
 			//offscreen = black
 			if ((DrawX > 639 || DrawY > 479))
 				 begin

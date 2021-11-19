@@ -19,7 +19,7 @@ module  ball ( input Reset, frame_clk,
 									Paddle1L, Paddle1W, Paddle2L, Paddle2W,	
                output[9:0] BallX, BallY, BallS,
 					output[3:0] scoreL, scoreR,
-					output		resetB);
+					output		resetB, paddle1Hit, paddle2Hit);
     
     logic [9:0] Ball_X_Pos, Ball_X_Motion, Ball_Y_Pos, Ball_Y_Motion, Ball_Size;
 	 logic [5:0] ledgeCountVal, redgeCountVal, tedgeCountVal, bedgeCountVal;
@@ -59,6 +59,8 @@ module  ball ( input Reset, frame_clk,
         if (Reset)
 		  //initalize ball
         begin 
+				paddle1Hit <= 0;
+				paddle2Hit <= 0;
 				resetBall <= 0;
 				score_left <= 0;
 				score_right <= 0;
@@ -73,6 +75,8 @@ module  ball ( input Reset, frame_clk,
         end
         else if (resetBall)
 		  begin
+				paddle1Hit <= 0;
+				paddle2Hit <= 0;
 				resetBall <= 0;
 				Ball_Y_Pos <= Ball_Y_Center;
 				Ball_X_Pos <= Ball_X_Center;
@@ -163,9 +167,14 @@ module  ball ( input Reset, frame_clk,
 						redgeCountVal <= 0;
 						tedgeCountVal <= 0; 
 						bedgeCountVal <= 0;
+						paddle1Hit <= 1;
 						Ball_Y_Motion <= bally1motion;
 						if (bally1motion < 0)
 							Ball_Y_Motion <= (~ (bally1motion) + 1'b1);
+					end
+				else
+					begin	
+						paddle1Hit <= 0;
 					end
 				
 				//if hits paddle2
@@ -179,9 +188,14 @@ module  ball ( input Reset, frame_clk,
 						redgeCountVal <= 0;
 						tedgeCountVal <= 0; 
 						bedgeCountVal <= 0;
+						paddle2Hit <= 1;
 						Ball_Y_Motion <= bally2motion;
 						if (bally2motion < 0)
 							Ball_Y_Motion <= (~ (bally2motion) + 1'b1);
+					end
+				else
+					begin	
+						paddle2Hit <= 0;
 					end
 				
 				if (( (score_left == 7) || (score_right == 7)))

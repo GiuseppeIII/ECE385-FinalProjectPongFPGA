@@ -72,7 +72,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	logic [9:0] paddle1Xsig, paddle1Ysig, paddle2Xsig, paddle2Ysig, paddle1Lsig, paddle1Wsig, paddle2Lsig, paddle2Wsig;
 	logic [7:0] Red, Blue, Green;
 	logic [7:0] keycode;
-	logic 		resetB, w_key, s_key, up_key, down_key;
+	logic 		resetB, w_key, s_key, up_key, down_key, paddle1Hit, paddle2Hit;
 
 //=======================================================
 //  Structural coding
@@ -177,7 +177,8 @@ ball vga_ball(
 .Reset(Reset_h), .frame_clk(VGA_VS), .keycode(keycode), 
 .Paddle1X(paddle1Xsig), .Paddle1Y(paddle1Ysig), .Paddle2X(paddle2Xsig), .Paddle2Y(paddle2Ysig),
 .Paddle1L(paddle1Lsig), .Paddle1W(paddle1Wsig), .Paddle2L(paddle2Lsig), .Paddle2W(paddle2Wsig),
-.BallX(ballxsig), .BallY(ballysig), .BallS(ballsizesig), .scoreL(hex_num_4), .scoreR(hex_num_1), .resetB(resetB));
+.BallX(ballxsig), .BallY(ballysig), .BallS(ballsizesig), .scoreL(hex_num_4), .scoreR(hex_num_1), 
+.resetB(resetB), .paddle1Hit(paddle1Hit), .paddle2Hit(paddle2Hit));
 
 paddle vga_paddles(
 .s_key(s_key), .w_key(w_key), .up_key(up_key), .down_key(down_key),
@@ -190,7 +191,7 @@ color vga_color_mapper(
 .Paddle1L(paddle1Lsig), .Paddle1W(paddle1Wsig), .Paddle2L(paddle2Lsig), .Paddle2W(paddle2Wsig),
 .BallX(ballxsig), .BallY(ballysig), .Ball_size(ballsizesig),
 .DrawX(drawxsig), .DrawY(drawysig), .scoreL(hex_num_4), .scoreR(hex_num_1),
-.Red(Red), .Green(Green), .Blue(Blue));
+.Red(Red), .Green(Green), .Blue(Blue), .paddle1Hit(paddle1Hit), .paddle2Hit(paddle2Hit));
 
 hexDriver hex_driver4 (hex_num_4, HEX4[6:0]);
 assign HEX4[7] = 1'b1;

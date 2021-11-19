@@ -22,7 +22,11 @@
 			spi0_SS_n                      : out   std_logic;                                        -- SS_n
 			usb_gpx_export                 : in    std_logic                     := 'X';             -- export
 			usb_irq_export                 : in    std_logic                     := 'X';             -- export
-			usb_rst_export                 : out   std_logic                                         -- export
+			usb_rst_export                 : out   std_logic;                                        -- export
+			s_key_export                   : out   std_logic;                                        -- export
+			w_key_export                   : out   std_logic;                                        -- export
+			up_key_export                  : out   std_logic;                                        -- export
+			down_key_export                : out   std_logic                                         -- export
 		);
 	end component finalProject_soc;
 
@@ -50,6 +54,10 @@
 			spi0_SS_n                      => CONNECTED_TO_spi0_SS_n,                      --                        .SS_n
 			usb_gpx_export                 => CONNECTED_TO_usb_gpx_export,                 --                 usb_gpx.export
 			usb_irq_export                 => CONNECTED_TO_usb_irq_export,                 --                 usb_irq.export
-			usb_rst_export                 => CONNECTED_TO_usb_rst_export                  --                 usb_rst.export
+			usb_rst_export                 => CONNECTED_TO_usb_rst_export,                 --                 usb_rst.export
+			s_key_export                   => CONNECTED_TO_s_key_export,                   --                   s_key.export
+			w_key_export                   => CONNECTED_TO_w_key_export,                   --                   w_key.export
+			up_key_export                  => CONNECTED_TO_up_key_export,                  --                  up_key.export
+			down_key_export                => CONNECTED_TO_down_key_export                 --                down_key.export
 		);
 

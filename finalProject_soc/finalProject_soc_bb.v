@@ -22,7 +22,11 @@ module finalProject_soc (
 	spi0_SS_n,
 	usb_gpx_export,
 	usb_irq_export,
-	usb_rst_export);	
+	usb_rst_export,
+	s_key_export,
+	w_key_export,
+	up_key_export,
+	down_key_export);	
 
 	input		clk_clk;
 	output	[15:0]	hex_digits_export;
@@ -47,4 +51,8 @@ module finalProject_soc (
 	input		usb_gpx_export;
 	input		usb_irq_export;
 	output		usb_rst_export;
+	output		s_key_export;
+	output		w_key_export;
+	output		up_key_export;
+	output		down_key_export;
 endmodule

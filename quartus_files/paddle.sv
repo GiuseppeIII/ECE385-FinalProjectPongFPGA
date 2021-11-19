@@ -1,6 +1,6 @@
 //Paddle 1 is left, Paddle 2 is right
 
-module  paddle ( 	input Reset, frame_clk, resetB,
+module  paddle ( 	input Reset, frame_clk, resetB, s_key, w_key, up_key, down_key,
 						input [7:0] 	keycode,
 						output [9:0]  	Paddle1X, Paddle1Y, Paddle2X, Paddle2Y, 
 										Paddle1L, Paddle1W, Paddle2L, Paddle2W);
@@ -29,7 +29,7 @@ module  paddle ( 	input Reset, frame_clk, resetB,
    
     always_ff @ (posedge Reset or posedge frame_clk or posedge resetB )
     begin: Move_Ball
-        if (Reset || resetB)  // Asynchronous Reset
+        if (Reset || resetB)
         begin 
             Paddle1Y_Motion <= 10'd0;
 				Paddle2Y_Motion <= 10'd0;
@@ -42,35 +42,21 @@ module  paddle ( 	input Reset, frame_clk, resetB,
 			
 				//Paddle 1
 				Paddle1Y_Motion <= 0;
-				case (keycode)					  
-					8'h1A : begin
-						if ((Paddle1Y_Pos - Paddle1_Length) >= Paddle1_Y_Min) begin
-							Paddle1Y_Motion <= -Paddle1_Y_Step;//W
-						end
-					end	
-					8'h16 : begin
-						if ((Paddle1Y_Pos + Paddle1_Length) <= Paddle1_Y_Max) begin
-							Paddle1Y_Motion <= Paddle1_Y_Step;//S
-						end
-					end  
-					default: ;
-				endcase
+				if (s_key && w_key)
+					Paddle1Y_Motion <= 0;
+				else if (s_key && ((Paddle1Y_Pos + Paddle1_Length) <= Paddle1_Y_Max))
+					Paddle1Y_Motion <= Paddle1_Y_Step;
+				else if (w_key && ((Paddle1Y_Pos - Paddle1_Length) >= Paddle1_Y_Min))
+					Paddle1Y_Motion <= -Paddle1_Y_Step;
 				
 				//Paddle 2
 				Paddle2Y_Motion <= 0;
-				case (keycode)					  
-					8'h52 : begin
-						if ((Paddle2Y_Pos - Paddle2_Length) >= Paddle2_Y_Min) begin
-							Paddle2Y_Motion <= -Paddle2_Y_Step;//UpArrow
-						end
-					end	  
-					8'h51 : begin
-						if ((Paddle2Y_Pos + Paddle2_Length) <= Paddle2_Y_Max) begin
-							Paddle2Y_Motion <= Paddle2_Y_Step;//DownArrow
-						end
-					end
-					default: ;
-			   endcase
+				if (up_key && down_key)
+					Paddle2Y_Motion <= 0;
+				else if (down_key && ((Paddle2Y_Pos + Paddle2_Length) <= Paddle2_Y_Max))
+					Paddle2Y_Motion <= Paddle2_Y_Step;
+				else if (up_key && ((Paddle2Y_Pos - Paddle2_Length) >= Paddle2_Y_Min))
+					Paddle2Y_Motion <= -Paddle2_Y_Step;
 				 
 				Paddle1Y_Pos <= (Paddle1Y_Pos + Paddle1Y_Motion);
 				Paddle2Y_Pos <= (Paddle2Y_Pos + Paddle2Y_Motion);

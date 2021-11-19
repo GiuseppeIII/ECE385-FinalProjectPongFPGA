@@ -7,7 +7,8 @@
    <irq preferredWidth="34" />
   </columns>
  </systemtable>
- <library expandedCategories="Library,Project" />
+ <library
+   expandedCategories="Library/Processors and Peripherals/Peripherals,Library,Project,Library/Processors and Peripherals" />
  <window width="1294" height="1400" x="1263" y="52" />
  <generation path="_PROJECT_NAME_/" />
 </preferences>

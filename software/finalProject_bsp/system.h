@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_gen2_0' in SOPC Builder design 'finalProject_soc'
  * SOPC Builder design path: ../../finalProject_soc.sopcinfo
  *
- * Generated: Wed Nov 17 14:36:40 CST 2021
+ * Generated: Thu Nov 18 20:36:21 CST 2021
  */
 
 /*
@@ -181,6 +181,33 @@
 
 
 /*
+ * down_key configuration
+ *
+ */
+
+#define ALT_MODULE_CLASS_down_key altera_avalon_pio
+#define DOWN_KEY_BASE 0x2300
+#define DOWN_KEY_BIT_CLEARING_EDGE_REGISTER 0
+#define DOWN_KEY_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define DOWN_KEY_CAPTURE 0
+#define DOWN_KEY_DATA_WIDTH 1
+#define DOWN_KEY_DO_TEST_BENCH_WIRING 0
+#define DOWN_KEY_DRIVEN_SIM_VALUE 0
+#define DOWN_KEY_EDGE_TYPE "NONE"
+#define DOWN_KEY_FREQ 50000000
+#define DOWN_KEY_HAS_IN 0
+#define DOWN_KEY_HAS_OUT 1
+#define DOWN_KEY_HAS_TRI 0
+#define DOWN_KEY_IRQ -1
+#define DOWN_KEY_IRQ_INTERRUPT_CONTROLLER_ID -1
+#define DOWN_KEY_IRQ_TYPE "NONE"
+#define DOWN_KEY_NAME "/dev/down_key"
+#define DOWN_KEY_RESET_VALUE 0
+#define DOWN_KEY_SPAN 16
+#define DOWN_KEY_TYPE "altera_avalon_pio"
+
+
+/*
  * hal configuration
  *
  */
@@ -347,6 +374,33 @@
 
 
 /*
+ * s_key configuration
+ *
+ */
+
+#define ALT_MODULE_CLASS_s_key altera_avalon_pio
+#define S_KEY_BASE 0x2000
+#define S_KEY_BIT_CLEARING_EDGE_REGISTER 0
+#define S_KEY_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define S_KEY_CAPTURE 0
+#define S_KEY_DATA_WIDTH 1
+#define S_KEY_DO_TEST_BENCH_WIRING 0
+#define S_KEY_DRIVEN_SIM_VALUE 0
+#define S_KEY_EDGE_TYPE "NONE"
+#define S_KEY_FREQ 50000000
+#define S_KEY_HAS_IN 0
+#define S_KEY_HAS_OUT 1
+#define S_KEY_HAS_TRI 0
+#define S_KEY_IRQ -1
+#define S_KEY_IRQ_INTERRUPT_CONTROLLER_ID -1
+#define S_KEY_IRQ_TYPE "NONE"
+#define S_KEY_NAME "/dev/s_key"
+#define S_KEY_RESET_VALUE 0
+#define S_KEY_SPAN 16
+#define S_KEY_TYPE "altera_avalon_pio"
+
+
+/*
  * sdram configuration
  *
  */
@@ -442,7 +496,7 @@
 #define SYSID_QSYS_0_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define SYSID_QSYS_0_NAME "/dev/sysid_qsys_0"
 #define SYSID_QSYS_0_SPAN 8
-#define SYSID_QSYS_0_TIMESTAMP 1637180755
+#define SYSID_QSYS_0_TIMESTAMP 1637289215
 #define SYSID_QSYS_0_TYPE "altera_avalon_sysid_qsys"
 
 
@@ -470,6 +524,33 @@
 #define TIMER_0_TICKS_PER_SEC 1000
 #define TIMER_0_TIMEOUT_PULSE_OUTPUT 0
 #define TIMER_0_TYPE "altera_avalon_timer"
+
+
+/*
+ * up_key configuration
+ *
+ */
+
+#define ALT_MODULE_CLASS_up_key altera_avalon_pio
+#define UP_KEY_BASE 0x2200
+#define UP_KEY_BIT_CLEARING_EDGE_REGISTER 0
+#define UP_KEY_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define UP_KEY_CAPTURE 0
+#define UP_KEY_DATA_WIDTH 1
+#define UP_KEY_DO_TEST_BENCH_WIRING 0
+#define UP_KEY_DRIVEN_SIM_VALUE 0
+#define UP_KEY_EDGE_TYPE "NONE"
+#define UP_KEY_FREQ 50000000
+#define UP_KEY_HAS_IN 0
+#define UP_KEY_HAS_OUT 1
+#define UP_KEY_HAS_TRI 0
+#define UP_KEY_IRQ -1
+#define UP_KEY_IRQ_INTERRUPT_CONTROLLER_ID -1
+#define UP_KEY_IRQ_TYPE "NONE"
+#define UP_KEY_NAME "/dev/up_key"
+#define UP_KEY_RESET_VALUE 0
+#define UP_KEY_SPAN 16
+#define UP_KEY_TYPE "altera_avalon_pio"
 
 
 /*
@@ -551,5 +632,32 @@
 #define USB_RST_RESET_VALUE 0
 #define USB_RST_SPAN 16
 #define USB_RST_TYPE "altera_avalon_pio"
+
+
+/*
+ * w_key configuration
+ *
+ */
+
+#define ALT_MODULE_CLASS_w_key altera_avalon_pio
+#define W_KEY_BASE 0x2100
+#define W_KEY_BIT_CLEARING_EDGE_REGISTER 0
+#define W_KEY_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define W_KEY_CAPTURE 0
+#define W_KEY_DATA_WIDTH 1
+#define W_KEY_DO_TEST_BENCH_WIRING 0
+#define W_KEY_DRIVEN_SIM_VALUE 0
+#define W_KEY_EDGE_TYPE "NONE"
+#define W_KEY_FREQ 50000000
+#define W_KEY_HAS_IN 0
+#define W_KEY_HAS_OUT 1
+#define W_KEY_HAS_TRI 0
+#define W_KEY_IRQ -1
+#define W_KEY_IRQ_INTERRUPT_CONTROLLER_ID -1
+#define W_KEY_IRQ_TYPE "NONE"
+#define W_KEY_NAME "/dev/w_key"
+#define W_KEY_RESET_VALUE 0
+#define W_KEY_SPAN 16
+#define W_KEY_TYPE "altera_avalon_pio"
 
 #endif /* __SYSTEM_H_ */

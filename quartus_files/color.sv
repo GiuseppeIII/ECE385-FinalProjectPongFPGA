@@ -23,7 +23,6 @@ module color (	input			[9:0] BallX, BallY, DrawX, DrawY, Ball_size,
     logic ball_on;
 	 logic paddle1_on;
 	 logic paddle2_on;
-	 logic score1Y_loc, score1X_loc, score2Y_loc, score2X_loc;
 	 logic [4:0] numCell1, numCell2;
 	 logic [8:0] score1_addr, score2_addr;
 	 logic [31:0] score1_data, score2_data;

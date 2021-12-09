@@ -32,10 +32,10 @@ module  ball ( input Reset, frame_clk,
     parameter [9:0] Ball_X_Max=596;
     parameter [9:0] Ball_Y_Min=20;
     parameter [9:0] Ball_Y_Max=461;
-    parameter [9:0] Ball_X_Step=6; 
-    parameter [9:0] Ball_Y_Step=6;
+    parameter [9:0] Ball_X_Step=5; 
+    parameter [9:0] Ball_Y_Step=5;
 
-    assign Ball_Size = 3;
+    assign Ball_Size = 5;
 	 int paddle1minHeight, paddle1maxHeight, paddle1minWidth, paddle1maxWidth;
 	 int paddle2minHeight, paddle2maxHeight, paddle2minWidth, paddle2maxWidth;
 	 int bally1motion, bally2motion, ballExtra;

@@ -4,7 +4,7 @@ JedecChain;
 	DefaultMfr(6E);
 
 	P ActionCode(Cfg)
-		Device PartName(10M50DAF484) Path("C:/School/ECE 385/ECE385-FinalProjectPongFPGA/output_files/") File("FinalProject.sof") MfrSpec(OpMask(1));
+		Device PartName(10M50DAF484) Path("D:/College/Fa2021/ECE_385/ECE385-FinalProjectPongFPGA/output_files/") File("FinalProject.sof") MfrSpec(OpMask(1));
 
 ChainEnd;
 

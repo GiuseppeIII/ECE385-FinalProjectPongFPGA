@@ -32,13 +32,13 @@ module  ball ( input Reset, frame_clk,
     parameter [9:0] Ball_X_Max=596;
     parameter [9:0] Ball_Y_Min=20;
     parameter [9:0] Ball_Y_Max=461;
-    parameter [9:0] Ball_X_Step=4; 
-    parameter [9:0] Ball_Y_Step=4;
+    parameter [9:0] Ball_X_Step=6; 
+    parameter [9:0] Ball_Y_Step=6;
 
-    assign Ball_Size = 4;
+    assign Ball_Size = 3;
 	 int paddle1minHeight, paddle1maxHeight, paddle1minWidth, paddle1maxWidth;
 	 int paddle2minHeight, paddle2maxHeight, paddle2minWidth, paddle2maxWidth;
-	 int bally1motion, bally2motion;
+	 int bally1motion, bally2motion, ballExtra;
 	 
 	 assign paddle1minHeight = Paddle1Y - Paddle1L;
 	 assign paddle1maxHeight = Paddle1Y + Paddle1L;
@@ -50,8 +50,8 @@ module  ball ( input Reset, frame_clk,
 	 assign paddle2minWidth = Paddle2X - Paddle2W;
 	 assign paddle2maxWidth = Paddle2X + Paddle2W;
 	 
-	 assign bally1motion = (Ball_Y_Pos - Paddle1Y)>>3;
-	 assign bally2motion = (Ball_Y_Pos - Paddle2Y)>>3;
+	 assign bally1motion = (Ball_Y_Pos - Paddle1Y)>>2;
+	 assign bally2motion = (Ball_Y_Pos - Paddle2Y)>>2;
   
 		
     always_ff @ (posedge Reset or posedge frame_clk )
@@ -59,6 +59,7 @@ module  ball ( input Reset, frame_clk,
         if (Reset)
 		  //initalize ball
         begin 
+				ballExtra <= 0;
 				paddle1Hit <= 0;
 				paddle2Hit <= 0;
 				resetBall <= 0;
@@ -75,6 +76,7 @@ module  ball ( input Reset, frame_clk,
         end
         else if (resetBall)
 		  begin
+				ballExtra <= 0;
 				paddle1Hit <= 0;
 				paddle2Hit <= 0;
 				resetBall <= 0;
@@ -105,7 +107,7 @@ module  ball ( input Reset, frame_clk,
 					
 				else if (((Ball_X_Pos + Ball_Size) >= Ball_X_Max) && (redgeCountVal == 0))  //right
 					begin
-					  Ball_X_Motion <= (~ (Ball_X_Motion) + 1'b1); 
+					  Ball_X_Motion <= (~ (Ball_X_Motion + ballExtra) + 1'b1); 
 					  redgeCountVal <= redgeCountVal + 1;
 					  score_left <= score_left + 1;
 					  resetBall <= 1;
@@ -113,7 +115,7 @@ module  ball ( input Reset, frame_clk,
 					
 				else if (((Ball_X_Pos - Ball_Size) <= Ball_X_Min) && (ledgeCountVal == 0))  //left
 					begin
-					  Ball_X_Motion <= (~ (Ball_X_Motion) + 1'b1);
+					  Ball_X_Motion <= (~ (Ball_X_Motion + ballExtra) + 1'b1);
 					  ledgeCountVal <= ledgeCountVal + 1;
 					  score_right <= score_right + 1;
 					  resetBall <= 1;
@@ -160,9 +162,10 @@ module  ball ( input Reset, frame_clk,
 				//rightEdge
 				if (((Ball_X_Pos - Ball_Size) <= paddle1maxWidth) && 
 					((Ball_Y_Pos - Ball_Size) <= paddle1maxHeight ) &&
-					((Ball_Y_Pos + Ball_Size) >= paddle1minHeight ))
+					((Ball_Y_Pos + Ball_Size) >= paddle1minHeight ) &&
+					((Ball_X_Pos + Ball_Size) >= paddle1minWidth ))
 					begin
-						Ball_X_Motion <= Ball_X_Step;
+						Ball_X_Motion <= (Ball_X_Step + ballExtra);
 						ledgeCountVal <= 0;
 						redgeCountVal <= 0;
 						tedgeCountVal <= 0; 
@@ -181,9 +184,10 @@ module  ball ( input Reset, frame_clk,
 				//leftEdge
 				if (((Ball_X_Pos + Ball_Size) >= paddle2minWidth) && 
 					((Ball_Y_Pos - Ball_Size) <= paddle2maxHeight ) &&
-					((Ball_Y_Pos + Ball_Size) >= paddle2minHeight ))
+					((Ball_Y_Pos + Ball_Size) >= paddle2minHeight ) &&
+					((Ball_X_Pos + Ball_Size) >= paddle2minWidth ))
 					begin
-						Ball_X_Motion <= (~ (Ball_X_Step) + 1'b1);
+						Ball_X_Motion <= (~ (Ball_X_Step + ballExtra) + 1'b1);
 						ledgeCountVal <= 0;
 						redgeCountVal <= 0;
 						tedgeCountVal <= 0; 
@@ -206,9 +210,15 @@ module  ball ( input Reset, frame_clk,
 				 
 				Ball_Y_Pos <= (Ball_Y_Pos + Ball_Y_Motion);
 				Ball_X_Pos <= (Ball_X_Pos + Ball_X_Motion);
+				if (keycode == 20)
+					Ball_X_Motion <= (Ball_X_Motion + 1);
+				if (keycode == 4)
+					Ball_X_Motion <= (Ball_X_Motion - 1);
 			
 		end  
     end
+	 
+		
 	assign resetB =  resetBall;
 	assign scoreL = score_left;
 	assign scoreR = score_right;

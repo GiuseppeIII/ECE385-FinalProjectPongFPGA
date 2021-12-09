@@ -17,15 +17,15 @@ module  paddle ( 	input Reset, frame_clk, resetB, s_key, w_key, up_key, down_key
 	 parameter [9:0] Paddle2_Y_Min=20;
     parameter [9:0] Paddle2_Y_Max=461;
 	 
-	 parameter [9:0] Paddle1_Y_Step=4;
-	 parameter [9:0] Paddle2_Y_Step=4;
+	 parameter [9:0] Paddle1_Y_Step=6;
+	 parameter [9:0] Paddle2_Y_Step=6;
 	 
 	 assign Paddle1_Length = 35;
 	 assign Paddle2_Length = 35;
 	 assign Paddle1_Width = 2;
 	 assign Paddle2_Width = 2;
 	 assign Paddle1X_Pos = 60;
-	 assign Paddle2X_Pos = 550;
+	 assign Paddle2X_Pos = 580;
    
     always_ff @ (posedge Reset or posedge frame_clk or posedge resetB )
     begin: Move_Ball

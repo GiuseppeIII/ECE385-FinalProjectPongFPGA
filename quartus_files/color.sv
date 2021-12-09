@@ -41,25 +41,26 @@ module color (	input			[9:0] BallX, BallY, DrawX, DrawY, Ball_size,
      of the 12 available multipliers on the chip!  Since the multiplicants are required to be signed,
 	  we have to first cast them from logic to int (signed by default) before they are multiplied). */
 	  
-//    int DistX, DistY, Size;
-//	 assign DistX = DrawX - BallX;
-//    assign DistY = DrawY - BallY;
-//    assign Size = Ball_size;
+    int DistX, DistY, Size;
+	 assign DistX = DrawX - BallX;
+    assign DistY = DrawY - BallY;
+    assign Size = Ball_size;
 
 	int score1Y, score1X, score2Y, score2X;
 	//320 is center of X
 
 	assign score1Y = DrawY - 60; 
-	assign score1X = DrawX - 235;
+	assign score1X = DrawX - 203;
 	assign score2Y = DrawY - 60;
 	assign score2X = DrawX - 405;
 	  
     always_comb
     begin:Ball_on_proc
-            if ((DrawX >= BallX - Ball_size) &&
-					(DrawX <= BallX + Ball_size) &&
-					(DrawY >= BallY - Ball_size) &&
-					(DrawY <= BallY + Ball_size))
+		if (( DistX*DistX + DistY*DistY) <= (Size * Size))
+//    if ((DrawX >= BallX - Ball_size) &&
+//		(DrawX <= BallX + Ball_size) &&
+//		(DrawY >= BallY - Ball_size) &&
+//		(DrawY <= BallY + Ball_size))
             ball_on = 1'b1;
         else 
             ball_on = 1'b0;

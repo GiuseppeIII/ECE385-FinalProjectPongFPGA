@@ -32,7 +32,7 @@ module  ball ( input Reset, frame_clk,
     parameter [9:0] Ball_X_Max=596;
     parameter [9:0] Ball_Y_Min=20;
     parameter [9:0] Ball_Y_Max=461;
-    parameter [9:0] Ball_X_Step=5; 
+    parameter [9:0] Ball_X_Step=7; 
     parameter [9:0] Ball_Y_Step=5;
 
     assign Ball_Size = 5;
@@ -50,8 +50,8 @@ module  ball ( input Reset, frame_clk,
 	 assign paddle2minWidth = Paddle2X - Paddle2W;
 	 assign paddle2maxWidth = Paddle2X + Paddle2W;
 	 
-	 assign bally1motion = (Ball_Y_Pos - Paddle1Y)>>2;
-	 assign bally2motion = (Ball_Y_Pos - Paddle2Y)>>2;
+	 assign bally1motion = (Ball_Y_Pos - Paddle1Y)>>3;
+	 assign bally2motion = (Ball_Y_Pos - Paddle2Y)>>3;
   
 		
     always_ff @ (posedge Reset or posedge frame_clk )
@@ -173,7 +173,9 @@ module  ball ( input Reset, frame_clk,
 						paddle1Hit <= 1;
 						Ball_Y_Motion <= bally1motion;
 						if (bally1motion < 0)
+						begin
 							Ball_Y_Motion <= (~ (bally1motion) + 1'b1);
+						end
 					end
 				else
 					begin	
@@ -182,7 +184,7 @@ module  ball ( input Reset, frame_clk,
 				
 				//if hits paddle2
 				//leftEdge
-				if (((Ball_X_Pos + Ball_Size) >= paddle2minWidth) && 
+				if (((Ball_X_Pos + Ball_Size) <= paddle2minWidth) && 
 					((Ball_Y_Pos - Ball_Size) <= paddle2maxHeight ) &&
 					((Ball_Y_Pos + Ball_Size) >= paddle2minHeight ) &&
 					((Ball_X_Pos + Ball_Size) >= paddle2minWidth ))

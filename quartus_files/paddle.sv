@@ -25,7 +25,7 @@ module  paddle ( 	input Reset, frame_clk, resetB, s_key, w_key, up_key, down_key
 	 assign Paddle1_Width = 2;
 	 assign Paddle2_Width = 2;
 	 assign Paddle1X_Pos = 60;
-	 assign Paddle2X_Pos = 580;
+	 assign Paddle2X_Pos = 565;
    
     always_ff @ (posedge Reset or posedge frame_clk or posedge resetB )
     begin: Move_Ball

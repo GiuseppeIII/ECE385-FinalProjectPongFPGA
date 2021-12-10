@@ -19,11 +19,11 @@ module  ball ( input Reset, frame_clk,
 									Paddle1L, Paddle1W, Paddle2L, Paddle2W,	
                output[9:0] BallX, BallY, BallS,
 					output[3:0] scoreL, scoreR,
-					output		resetB, paddle1Hit, paddle2Hit);
+					output		resetB, paddle1Hit, paddle2Hit, nGame, eGame);
     
     logic [9:0] Ball_X_Pos, Ball_X_Motion, Ball_Y_Pos, Ball_Y_Motion, Ball_Size;
 	 logic [5:0] ledgeCountVal, redgeCountVal, tedgeCountVal, bedgeCountVal;
-	 logic 		 resetBall;
+	 logic 		 resetBall, newGame, endGame;
 	 logic [3:0] score_left, score_right;
 	 
     parameter [9:0] Ball_X_Center=320;
@@ -70,10 +70,34 @@ module  ball ( input Reset, frame_clk,
 				ledgeCountVal <= 0;
 				redgeCountVal <= 0;
             Ball_Y_Motion <= 0;
-				Ball_X_Motion <= Ball_X_Step;
+				Ball_X_Motion <= 0;
+				newGame <= 1;
+				endGame <= 0;
 				Ball_Y_Pos <= Ball_Y_Center;
 				Ball_X_Pos <= Ball_X_Center;
         end
+		  else if (endGame)
+		  begin
+				ballExtra <= 0;
+				paddle1Hit <= 0;
+				paddle2Hit <= 0;
+				resetBall <= 0;
+				Ball_Y_Pos <= Ball_Y_Center;
+				Ball_X_Pos <= Ball_X_Center;
+				Ball_Y_Motion <= 0;
+				Ball_X_Motion <= 0;
+				bedgeCountVal <= 0;
+				tedgeCountVal <= 0;
+				ledgeCountVal <= 0;
+				redgeCountVal <= 0;
+				if (keycode >= 1)
+				begin
+					endGame <= 0;
+					resetBall <= 1;
+					score_right<=0;
+					score_left<=0;
+				end
+				end
         else if (resetBall)
 		  begin
 				ballExtra <= 0;
@@ -206,8 +230,7 @@ module  ball ( input Reset, frame_clk,
 				
 				if (( (score_left == 7) || (score_right == 7)))
 					begin
-						score_right<=0;
-						score_left<=0;
+						endGame <= 1;
 					end
 				 
 				Ball_Y_Pos <= (Ball_Y_Pos + Ball_Y_Motion);
@@ -216,11 +239,17 @@ module  ball ( input Reset, frame_clk,
 					Ball_X_Motion <= (Ball_X_Motion + 1);
 				if (keycode == 4)
 					Ball_X_Motion <= (Ball_X_Motion - 1);
-			
+					
+				if (keycode >= 1 && newGame)
+				begin
+					newGame <= 0;
+					resetBall <= 1;
+				end
 		end  
     end
 	 
-		
+	assign eGame = endGame;
+	assign nGame = newGame;
 	assign resetB =  resetBall;
 	assign scoreL = score_left;
 	assign scoreR = score_right;

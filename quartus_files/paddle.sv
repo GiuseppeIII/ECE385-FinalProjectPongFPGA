@@ -35,8 +35,7 @@ module  paddle ( 	input Reset, frame_clk, resetB, s_key, w_key, up_key, down_key
 				Paddle2Y_Motion <= 10'd0;
 				Paddle1Y_Pos <= Paddle1_Y_Center;
 				Paddle2Y_Pos <= Paddle2_Y_Center;
-        end
-           
+        end  
         else 
         begin 
 			

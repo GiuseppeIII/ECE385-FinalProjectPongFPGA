@@ -17,7 +17,7 @@ module color (	input			[9:0] BallX, BallY, DrawX, DrawY, Ball_size,
 					input			[9:0] Paddle1X, Paddle1Y, Paddle2X, Paddle2Y, 
 											Paddle1L, Paddle1W, Paddle2L, Paddle2W,	
 					input			[3:0] scoreL, scoreR,
-					input					paddle1Hit, paddle2Hit,
+					input					paddle1Hit, paddle2Hit, nGame, eGame,
 					output logic[7:0] Red, Green, Blue );
 					
     logic ball_on;
@@ -104,6 +104,13 @@ module color (	input			[9:0] BallX, BallY, DrawX, DrawY, Ball_size,
 			numCell1 = score1X[4:0];
 			numCell2 = score2X[4:0];
 			
+			if (eGame)
+			begin
+				Red = 8'hda; 
+				Green = 8'h56;
+				Blue = 8'h22;
+			end
+			
 			if ((score1Y >= 0) && (score1Y <= 63) && (score1X >= 0) && (score1X <= 31))
 				begin
 					if (score1_data[~numCell1] == 1)
@@ -114,12 +121,19 @@ module color (	input			[9:0] BallX, BallY, DrawX, DrawY, Ball_size,
 							Blue = 8'hff;
 						end
 					else
+						if (eGame)
+							begin
+								Red = 8'hda; 
+								Green = 8'h56;
+								Blue = 8'h22;
+							end
+						else
 						//blue background
-						begin
-							Red = 8'h00; 
-							Green = 8'h00;
-							Blue = 8'h7f;
-						end
+							begin
+								Red = 8'h00; 
+								Green = 8'h00;
+								Blue = 8'h7f;
+							end
 				end
 			if ((score2Y >= 0) && (score2Y <= 63) && (score2X >= 0) && (score2X <= 31))
 				begin
@@ -131,15 +145,22 @@ module color (	input			[9:0] BallX, BallY, DrawX, DrawY, Ball_size,
 							Blue = 8'hff;
 						end
 					else
+						if (eGame)
+							begin
+								Red = 8'hda; 
+								Green = 8'h56;
+								Blue = 8'h22;
+							end
+						else
 						//blue background
-						begin
-							Red = 8'h00; 
-							Green = 8'h00;
-							Blue = 8'h7f;
-						end
+							begin
+								Red = 8'h00; 
+								Green = 8'h00;
+								Blue = 8'h7f;
+							end
 				end
 			
-			if ((ball_on == 1'b1)) 
+			if ((ball_on == 1'b1) && (!eGame)) 
 				begin 
 				//ball color (red)
 					Red = 8'hff;
@@ -147,7 +168,7 @@ module color (	input			[9:0] BallX, BallY, DrawX, DrawY, Ball_size,
 					Blue = 8'h00;
 				end  
 				
-			if ((paddle1_on == 1'b1)) 
+			if ((paddle1_on == 1'b1) && (!eGame)) 
 				begin 
 				if (paddle1Hit)
 					//color red
@@ -165,7 +186,7 @@ module color (	input			[9:0] BallX, BallY, DrawX, DrawY, Ball_size,
 					end  
 				end
 				
-			if ((paddle2_on == 1'b1)) 
+			if ((paddle2_on == 1'b1) && (!eGame)) 
 				begin 
 				if (paddle2Hit)
 					//color red
@@ -182,6 +203,13 @@ module color (	input			[9:0] BallX, BallY, DrawX, DrawY, Ball_size,
 					Blue = 8'hff;
 					end  
 				end 
+				
+			if (nGame)
+			begin
+				Red = 8'hff;
+				Green = 8'h00;
+				Blue = 8'h00;
+			end
 				 
 			//offscreen = black
 			if ((DrawX > 639 || DrawY > 479))

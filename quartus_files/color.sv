@@ -24,8 +24,9 @@ module color (	input			[9:0] BallX, BallY, DrawX, DrawY, Ball_size,
 	 logic paddle1_on;
 	 logic paddle2_on;
 	 logic [4:0] numCell1, numCell2;
-	 logic [8:0] score1_addr, score2_addr;
+	 logic [8:0] score1_addr, score2_addr, start_addr, end_addr;
 	 logic [31:0] score1_data, score2_data;
+	 logic [639:0] start_data, end_data;
 	 
 	 
  /* Old Ball: Generated square box by checking if the current pixel is within a square of length
@@ -90,6 +91,8 @@ module color (	input			[9:0] BallX, BallY, DrawX, DrawY, Ball_size,
 		 
 	numRom num1(.addr(score1_addr), .data(score1_data));
 	numRom num2(.addr(score2_addr), .data(score2_data));
+	startScreen startScr(.addr(DrawY), .data(start_data));
+	endScreen endScr(.addr(DrawY), .data(end_data));
 	
 	always_comb
 	begin:RGB_Display
@@ -104,14 +107,39 @@ module color (	input			[9:0] BallX, BallY, DrawX, DrawY, Ball_size,
 			numCell1 = score1X[4:0];
 			numCell2 = score2X[4:0];
 			
-			if (eGame)
+			if (nGame)
 			begin
-				Red = 8'hda; 
-				Green = 8'h56;
-				Blue = 8'h22;
+				if (start_data[~DrawX - 390] == 1)
+					begin
+						Red = 8'hff; 
+						Green = 8'hff;
+						Blue = 8'hff;
+					end
+				else
+					begin
+						Red = 8'hda; 
+						Green = 8'h56;
+						Blue = 8'h22;
+					end
 			end
 			
-			if ((score1Y >= 0) && (score1Y <= 63) && (score1X >= 0) && (score1X <= 31))
+			if (eGame)
+			begin
+				if (end_data[~DrawX - 390] == 1)
+					begin
+						Red = 8'hff; 
+						Green = 8'hff;
+						Blue = 8'hff;
+					end
+				else
+					begin
+						Red = 8'hda; 
+						Green = 8'h56;
+						Blue = 8'h22;
+					end
+			end
+			
+			if ((score1Y >= 0) && (score1Y <= 63) && (score1X >= 0) && (score1X <= 31) && (!nGame))
 				begin
 					if (score1_data[~numCell1] == 1)
 						//white foreground
@@ -135,7 +163,7 @@ module color (	input			[9:0] BallX, BallY, DrawX, DrawY, Ball_size,
 								Blue = 8'h7f;
 							end
 				end
-			if ((score2Y >= 0) && (score2Y <= 63) && (score2X >= 0) && (score2X <= 31))
+			if ((score2Y >= 0) && (score2Y <= 63) && (score2X >= 0) && (score2X <= 31) && (!nGame))
 				begin
 					if (score2_data[~numCell2] == 1)
 						//white foreground
@@ -160,7 +188,7 @@ module color (	input			[9:0] BallX, BallY, DrawX, DrawY, Ball_size,
 							end
 				end
 			
-			if ((ball_on == 1'b1) && (!eGame)) 
+			if ((ball_on == 1'b1) && (!eGame) && (!nGame)) 
 				begin 
 				//ball color (red)
 					Red = 8'hff;
@@ -168,7 +196,7 @@ module color (	input			[9:0] BallX, BallY, DrawX, DrawY, Ball_size,
 					Blue = 8'h00;
 				end  
 				
-			if ((paddle1_on == 1'b1) && (!eGame)) 
+			if ((paddle1_on == 1'b1) && (!eGame) && (!nGame)) 
 				begin 
 				if (paddle1Hit)
 					//color red
@@ -186,7 +214,7 @@ module color (	input			[9:0] BallX, BallY, DrawX, DrawY, Ball_size,
 					end  
 				end
 				
-			if ((paddle2_on == 1'b1) && (!eGame)) 
+			if ((paddle2_on == 1'b1) && (!eGame) && (!nGame)) 
 				begin 
 				if (paddle2Hit)
 					//color red
@@ -203,13 +231,6 @@ module color (	input			[9:0] BallX, BallY, DrawX, DrawY, Ball_size,
 					Blue = 8'hff;
 					end  
 				end 
-				
-			if (nGame)
-			begin
-				Red = 8'hff;
-				Green = 8'h00;
-				Blue = 8'h00;
-			end
 				 
 			//offscreen = black
 			if ((DrawX > 639 || DrawY > 479))
